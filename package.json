@@ -1,0 +1,26 @@
+{
+    "name" : "jspromise",
+    "version" : "0.0.1",
+    "description" : "Promises/A+ proposal compatible promises library",
+    "homepage" : "https://github.com/dfilatov/jspromise",
+    "keywords" : ["promise"],
+    "author" : "Dmitry Filatov <dfilatov@yandex-team.ru>",
+    "contributors" : [{
+        "name"  : "Dmitry Filatov",
+        "email" : "dfilatov@yandex-team.ru"
+    }],
+    "repository":{
+        "type" : "git",
+        "url"  : "http://github.com/dfilatov/jspromise.git"
+    },
+    "dependencies": {},
+    "devDependencies": {
+        "nodeunit" : "",
+        "istanbul" : ""
+    },
+    "main" : "index",
+    "engines" : { "node" : ">= 0.4.0" },
+    "scripts" : {
+        "test" : "./node_modules/istanbul/lib/cli.js test test-runner.js"
+    }
+}
