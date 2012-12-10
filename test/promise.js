@@ -1,7 +1,7 @@
 var Promise = require('../lib/promise');
 
 module.exports = {
-	'onresolved callbacks should be called on resolve only' : function(test) {
+	'onFulfilled callbacks should be called on fulfill only' : function(test) {
 		var promise = Promise(),
 			called1 = false,
 			called2 = false,
@@ -20,7 +20,7 @@ module.exports = {
 			called3 = true;
 		});
 
-		promise.resolve();
+		promise.fulfill();
 
         promise.then(function() {
             called4 = true;
@@ -67,7 +67,7 @@ module.exports = {
 		});		
 	},
 
-    'onresolved callbacks should be called once' : function(test) {
+    'onFulfilled callbacks should be called once' : function(test) {
         var promise = Promise(),
             calledCnt = 0;
 
@@ -75,8 +75,8 @@ module.exports = {
             calledCnt++;
         });
 
-        promise.resolve();
-        promise.resolve();
+        promise.fulfill();
+        promise.fulfill();
 
         promise.then(function() {
             test.strictEqual(calledCnt, 1);
@@ -101,7 +101,7 @@ module.exports = {
         });
     },
 
-    'onresolved callbacks shouldn\'t be called if resolve have been called after reject' : function(test) {
+    'onFulfilled callbacks shouldn\'t be called if fulfill have been called after reject' : function(test) {
         var promise = Promise(),
             called = false;
 
@@ -110,7 +110,7 @@ module.exports = {
         });
 
         promise.reject();
-        promise.resolve();
+        promise.fulfill();
 
         promise.then(null, function() {
             test.ok(!called);
@@ -118,7 +118,7 @@ module.exports = {
         });
     },
 
-    'onRejected callbacks shouldn\'t be called if reject hav been called after resolve' : function(test) {
+    'onRejected callbacks shouldn\'t be called if reject hav been called after fulfill' : function(test) {
         var promise = Promise(),
             called = false;
 
@@ -126,7 +126,7 @@ module.exports = {
             called = true;
         });
 
-        promise.resolve();
+        promise.fulfill();
         promise.reject();
 
         promise.then(function() {
@@ -135,7 +135,7 @@ module.exports = {
         });
     },
 
-    'onresolved callbacks should be executed in the order of their originating calls to then' : function(test) {
+    'onFulfilled callbacks should be executed in the order of their originating calls to then' : function(test) {
         var promise = Promise(),
             resOrder = [];
 
@@ -147,7 +147,7 @@ module.exports = {
             resOrder.push(2);
         });
 
-        promise.resolve();
+        promise.fulfill();
 
         promise.then(function() {
             resOrder.push(3);
@@ -209,7 +209,7 @@ module.exports = {
         }, 10);
     },
 
-    'onresolved callback shouldn\'t be called in the same turn of the event loop as the call to then' : function(test) {
+    'onFulfilled callback shouldn\'t be called in the same turn of the event loop as the call to then' : function(test) {
         var promise = Promise(),
             resOrder = [];
 
@@ -240,7 +240,7 @@ module.exports = {
         });
 
         resOrder.push(1);
-        promise.resolve();
+        promise.fulfill();
 
         setTimeout(function() {
             test.deepEqual(resOrder, [1, 2, 3, 4, 5, 6, 7, 8]);
@@ -287,7 +287,7 @@ module.exports = {
         }, 20);
     },
 
-    'resulting promise should be resolved with same value' : function(test) {
+    'resulting promise should be fulfilled with same value' : function(test) {
         var promise = Promise();
 
         promise.then().then(function(val) {
@@ -295,7 +295,7 @@ module.exports = {
             test.done();
         });
 
-        promise.resolve('val');
+        promise.fulfill('val');
     },
 
     'resulting promise should be rejected with same reason' : function(test) {
@@ -310,13 +310,13 @@ module.exports = {
         promise.reject(error);
     },
 
-    'resulting promise should be resolved with returned value of resolved callback' : function(test) {
+    'resulting promise should be fulfilled with returned value of fulfilled callback' : function(test) {
         var promise = Promise(),
             resPromise = promise.then(function() {
                 return 'val';
             });
 
-        promise.resolve();
+        promise.fulfill();
 
         resPromise.then(function(val) {
             test.strictEqual(val, 'val');
@@ -324,7 +324,7 @@ module.exports = {
         });
     },
 
-	'resulting promise should be resolved with same value as returned promise of resolved callback' : function(test) {
+	'resulting promise should be fulfilled with same value as returned promise of fulfilled callback' : function(test) {
 		var promise = Promise(),
 			retPromise = Promise(),
 			resPromise = promise.then(function() {				
@@ -332,7 +332,7 @@ module.exports = {
 			});
 
 		promise.then(function() {
-			retPromise.resolve('ok');
+			retPromise.fulfill('ok');
 		});
 
 		resPromise.then(function(val) {
@@ -340,7 +340,7 @@ module.exports = {
 			test.done();
 		});
 
-		promise.resolve();
+		promise.fulfill();
 	},
 
     'resulting promise should be rejected with same value as returned promise of rejected callback' : function(test) {
@@ -360,10 +360,10 @@ module.exports = {
 			test.done();
 		});
 
-		promise.resolve();
+		promise.fulfill();
 	},
 
-    'resulting promise should be rejected if resolved callback throw exception' : function(test) {
+    'resulting promise should be rejected if fulfilled callback throw exception' : function(test) {
         var promise = Promise(),
 			resPromise = promise.then(function() {
 			    throw { message : 'error' };
@@ -374,7 +374,7 @@ module.exports = {
 			test.done();
 		});
 
-		promise.resolve();
+		promise.fulfill();
     },
 
     'resulting promise should be rejected if rejected callback throw exception' : function(test) {
@@ -391,20 +391,20 @@ module.exports = {
 		promise.reject();
     },
 
-    'resulting promise should be resolved after all promises resolved or rejected' : function(test) {
+    'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
         var promises = [Promise(), Promise(), Promise()];
 
-        Promise.all(promises).then(function(_promises) {
+        Promise.allResolved(promises).then(function(_promises) {
             test.deepEqual(_promises, promises);
             _promises.forEach(function(promise, i) {
-                test.ok(i % 2? promise.isResolved() : promise.isRejected());
+                test.ok(i % 2? promise.isFulfilled() : promise.isRejected());
             });
             test.done();
         });
 
         promises.forEach(function(promise, i) {
             i % 2?
-                promise.resolve() :
+                promise.fulfill() :
                 promise.reject();
         });
     },
@@ -418,12 +418,12 @@ module.exports = {
         }, 20);
     },
 
-    'resulting promise should be resolved before timeout' : function(test) {
+    'resulting promise should be fulfilled before timeout' : function(test) {
         var origPromise = Promise(),
             resPromise = Promise.timeout(origPromise, 20);
 
         setTimeout(function() {
-            origPromise.resolve('val');
+            origPromise.fulfill('val');
         }, 10);
 
         resPromise.then(function(val) {

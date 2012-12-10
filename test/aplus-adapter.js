@@ -3,7 +3,7 @@ var Promise = require('../lib/promise');
 module.exports = {
     fulfilled : function(val) {
         var promise = Promise();
-        promise.resolve(val);
+        promise.fulfill(val);
         return promise;
     },
 
@@ -19,7 +19,7 @@ module.exports = {
             promise : promise,
             
             fulfill : function(val) {
-                promise.resolve(val);
+                promise.fulfill(val);
             },
 
             reject : function(reason) {
