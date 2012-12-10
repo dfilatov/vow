@@ -16,7 +16,8 @@
     "dependencies": {},
     "devDependencies": {
         "nodeunit" : "",
-        "istanbul" : ""
+        "istanbul" : "",
+        "promises-aplus-tests": "git://github.com/promises-aplus/promises-tests.git"
     },
     "main" : "index",
     "engines" : { "node" : ">= 0.4.0" },
