@@ -391,6 +391,33 @@ module.exports = {
 		promise.reject();
     },
 
+    'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
+        var promises = [Promise(), Promise(), Promise()];
+
+        Promise.all(promises).then(function(vals) {
+            test.deepEqual(vals, [0, 1, 2]);
+            test.done();
+        });
+
+        promises.forEach(function(promise, i) {
+            promise.fulfill(i);
+        });
+    },
+
+    'resulting promise should be rejected if any promise rejected' : function(test) {
+        var promises = [Promise(), Promise(), Promise()],
+            error = new Error('error')
+
+        Promise.all(promises).then(null, function(_error) {
+            test.deepEqual(_error, error);
+            test.done();
+        });
+
+        promises.forEach(function(promise, i) {
+            i % 2? promise.fulfill() : promise.reject(error);
+        });
+    },
+
     'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
         var promises = [Promise(), Promise(), Promise()];
 
@@ -403,17 +430,15 @@ module.exports = {
         });
 
         promises.forEach(function(promise, i) {
-            i % 2?
-                promise.fulfill() :
-                promise.reject();
+            i % 2? promise.fulfill() : promise.reject();
         });
     },
 
     'resulting promise should be rejected after timeout' : function(test) {
-        var promise = Promise.timeout(Promise(), 10);
+        var resPromise = Promise.timeout(Promise(), 10);
         setTimeout(function() {
-            test.ok(promise.isRejected());
-            test.deepEqual(promise.valueOf(), new Error('timed out'));
+            test.ok(resPromise.isRejected());
+            test.deepEqual(resPromise.valueOf(), new Error('timed out'));
             test.done();
         }, 20);
     },
