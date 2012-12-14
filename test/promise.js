@@ -406,7 +406,7 @@ module.exports = {
 
     'resulting promise should be rejected if any promise rejected' : function(test) {
         var promises = [Promise(), Promise(), Promise()],
-            error = new Error('error')
+            error = new Error('error');
 
         Promise.all(promises).then(null, function(_error) {
             test.deepEqual(_error, error);
@@ -416,6 +416,18 @@ module.exports = {
         promises.forEach(function(promise, i) {
             i % 2? promise.fulfill() : promise.reject(error);
         });
+    },
+
+    'arguments can contains non-promise items' : function(test) {
+        var promises = [Promise(), 1, Promise(), 3];
+
+        Promise.all(promises).then(function(vals) {
+            test.deepEqual(vals, [0, 1, 2, 3]);
+            test.done();
+        });
+
+        promises[0].fulfill(0);
+        promises[2].fulfill(2);
     },
 
     'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
