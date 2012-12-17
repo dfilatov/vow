@@ -439,6 +439,13 @@ module.exports = {
             });
         },
 
+        'resulting promise should be fulfilled if argument is empty array' : function(test) {
+            Promise.all([]).then(function(vals) {
+                test.deepEqual(vals, []);
+                test.done();
+            });
+        },
+
         'arguments can contains non-promise items' : function(test) {
             var promises = [Promise(), 1, Promise(), 3];
 
@@ -467,7 +474,14 @@ module.exports = {
             promises.forEach(function(promise, i) {
                 i % 2? promise.fulfill() : promise.reject();
             });
-        }
+        },
+
+        'resulting promise should be fulfilled if argument is empty array' : function(test) {
+            Promise.allResolved([]).then(function(vals) {
+                test.deepEqual(vals, []);
+                test.done();
+            });
+        },
     },
 
     'Promise.timeout' : {
