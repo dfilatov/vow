@@ -17,6 +17,7 @@
     "devDependencies": {
         "nodeunit" : "",
         "istanbul" : "",
+        "uglify-js" : "",
         "promises-aplus-tests": "git://github.com/promises-aplus/promises-tests.git"
     },
     "main" : "index",

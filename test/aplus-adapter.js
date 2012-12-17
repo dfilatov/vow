@@ -1,4 +1,4 @@
-var Promise = require('../lib/promise');
+var Promise = require('..');
 
 module.exports = {
     fulfilled : function(val) {
