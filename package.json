@@ -1,9 +1,9 @@
 {
     "name" : "jspromise",
-    "version" : "0.0.7",
+    "version" : "0.0.8",
     "description" : "Promises/A+ proposal compatible promises library",
     "homepage" : "https://github.com/dfilatov/jspromise",
-    "keywords" : ["promise"],
+    "keywords" : ["promise", "a+"],
     "author" : "Dmitry Filatov <dfilatov@yandex-team.ru>",
     "contributors" : [{
         "name"  : "Dmitry Filatov",
