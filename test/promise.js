@@ -197,7 +197,7 @@ module.exports = {
             });
         },
 
-        'onRejected callbacks shouldn\'t be called if reject hav been called after fulfill' : function(test) {
+        'onRejected callbacks shouldn\'t be called if reject have been called after fulfill' : function(test) {
             var promise = Promise(),
                 called = false;
 
@@ -315,7 +315,7 @@ module.exports = {
             promise.reject(error);
         },
 
-        'resulting promise should be fulfilled with returned value of fulfilled callback' : function(test) {
+        'resulting promise should be fulfilled with returned value of onFulfilled callback' : function(test) {
             var promise = Promise(),
                 resPromise = promise.then(function() {
                     return 'val';
@@ -329,7 +329,7 @@ module.exports = {
             });
         },
 
-        'resulting promise should be fulfilled with same value as returned promise of fulfilled callback' : function(test) {
+        'resulting promise should be fulfilled with same value as returned promise of onFulfilled callback' : function(test) {
             var promise = Promise(),
                 retPromise = Promise(),
                 resPromise = promise.then(function() {
@@ -348,7 +348,7 @@ module.exports = {
             promise.fulfill();
         },
 
-        'resulting promise should be rejected with same value as returned promise of rejected callback' : function(test) {
+        'resulting promise should be rejected with same value as returned promise of onRejected callback' : function(test) {
             var promise = Promise(),
                 retPromise = Promise(),
                 resPromise = promise.then(function() {
@@ -368,7 +368,7 @@ module.exports = {
             promise.fulfill();
         },
 
-        'resulting promise should be rejected if fulfilled callback throw exception' : function(test) {
+        'resulting promise should be rejected if onFulfilled callback throw exception' : function(test) {
             var promise = Promise(),
                 resPromise = promise.then(function() {
                     throw { message : 'error' };
@@ -382,7 +382,7 @@ module.exports = {
             promise.fulfill();
         },
 
-        'resulting promise should be rejected if rejected callback throw exception' : function(test) {
+        'resulting promise should be rejected if onRejected callback throw exception' : function(test) {
             var promise = Promise(),
                 resPromise = promise.then(null, function() {
                     throw { message : 'error' };
@@ -408,6 +408,49 @@ module.exports = {
                 test.done();
             });
             promise.fulfill([1, '2', true]);
+        }
+    },
+
+    'Promise.isPromise' : {
+        'should be true if argument is promise' : function(test) {
+            test.ok(Promise.isPromise(Promise()));
+            test.done();
+        },
+
+        'should be false if argument is non-promise' : function(test) {
+            test.ok(!Promise.isPromise('val'));
+            test.done();
+        }
+    },
+
+    'Promise.when' : {
+        'onFullfilled callback should be called when argument fullfilled' : function(test) {
+            var promise = Promise();
+
+            Promise.when(promise, function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
+
+            promise.fulfill('val');
+        },
+
+        'onRejected callback should be called when argument rejected' : function(test) {
+            var promise = Promise();
+
+            Promise.when(promise, null, function(error) {
+                test.strictEqual(error, 'err');
+                test.done();
+            });
+
+            promise.reject('err');
+        },
+
+        'onFulfilled callback should be called if argument is non-promise' : function(test) {
+            Promise.when('val', function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
         }
     },
 

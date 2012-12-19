@@ -1,6 +1,6 @@
 {
     "name" : "jspromise",
-    "version" : "0.0.9",
+    "version" : "0.0.10",
     "description" : "Promises/A+ proposal compatible promises library",
     "homepage" : "https://github.com/dfilatov/jspromise",
     "keywords" : ["promise", "a+"],
