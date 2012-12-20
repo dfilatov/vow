@@ -5,6 +5,6 @@ benchmark:
 	node benchmarks/comparison.js
 
 min:
-	node ./node_modules/uglify-js/bin/uglifyjs lib/jspromise.js > jspromise.min.js
+	./node_modules/uglify-js/bin/uglifyjs lib/vow.js > vow.min.js
 
 .PHONY: test benchmark min

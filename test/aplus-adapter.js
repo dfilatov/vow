@@ -1,20 +1,20 @@
-var Promise = require('..');
+var Vow = require('..');
 
 module.exports = {
     fulfilled : function(val) {
-        var promise = Promise();
+        var promise = Vow.promise();
         promise.fulfill(val);
         return promise;
     },
 
     rejected : function(reason) {
-        var promise = Promise();
+        var promise = Vow.promise();
         promise.reject(reason);
         return promise;  
     },
 
     pending : function() {
-        var promise = Promise();
+        var promise = Vow.promise();
         return {
             promise : promise,
             

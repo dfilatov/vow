@@ -2,7 +2,7 @@ var cliff = require('cliff'),
     benchmark = require('benchmark'),
     fs = require('fs'),
     data = JSON.parse(fs.readFileSync(__dirname + '/data.json', 'utf8')),
-    Promise = require('..'),
+    Vow = require('..'),
     Q = require('q'),
     When = require('when'),
     tests = {
@@ -58,14 +58,14 @@ var cliff = require('cliff'),
             });
         },
 
-        'JSPromise' : function(deferred) {
+        'Vow' : function(deferred) {
             var toResolve = [],
                 topPromises = [];
 
             Object.keys(data).forEach(function(key) {
-                var promise = Promise();
-                Promise.all(data[key].map(function(val) {
-                        var promise = Promise();
+                var promise = Vow.promise();
+                Vow.all(data[key].map(function(val) {
+                        var promise = Vow.promise();
                         toResolve.push({ promise : promise, val : val });
                         return promise;
                     }))
@@ -75,7 +75,7 @@ var cliff = require('cliff'),
                 topPromises.push(promise);
             });
 
-            Promise.all(topPromises).then(function() {
+            Vow.all(topPromises).then(function() {
                 deferred.resolve();
             });
 

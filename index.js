@@ -1,1 +1,1 @@
-module.exports = require('./lib/jspromise');
+module.exports = require('./lib/vow');

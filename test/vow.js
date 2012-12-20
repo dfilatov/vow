@@ -1,9 +1,18 @@
-var Promise = require('..');
+var Vow = require('..');
 
 module.exports = {
+    'promise' : {
+        'promise should be immediately fulfilled with argument value' : function(test) {
+            var promise = Vow.promise('val');
+            promise.then(function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
+        }
+    },
     'promise.fulfill' : {
         'onFulfilled callbacks should be called on fulfill only' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 called1 = false,
                 called2 = false,
                 called3 = false,
@@ -36,7 +45,7 @@ module.exports = {
         },
 
         'onFulfilled callbacks should be called once' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 calledCnt = 0;
 
             promise.then(function() {
@@ -53,7 +62,7 @@ module.exports = {
         },
 
         'onFulfilled callbacks shouldn\'t be called if fulfill have been called after reject' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 called = false;
 
             promise.then(function() {
@@ -70,7 +79,7 @@ module.exports = {
         },
 
         'onFulfilled callbacks should be executed in the order of their originating calls to then' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resOrder = [];
 
             promise.then(function() {
@@ -107,7 +116,7 @@ module.exports = {
         },
 
         'onFulfilled callback shouldn\'t be called in the same turn of the event loop as the call to then' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resOrder = [];
 
             promise.then(function() {
@@ -148,7 +157,7 @@ module.exports = {
 
     'promise.reject' : {
         'onRejected callbacks should be called on reject only' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 called1 = false,
                 called2 = false,
                 called3 = false,
@@ -181,7 +190,7 @@ module.exports = {
         },
 
         'onRejected callbacks should be called once' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 calledCnt = 0;
 
             promise.then(null, function() {
@@ -198,7 +207,7 @@ module.exports = {
         },
 
         'onRejected callbacks shouldn\'t be called if reject have been called after fulfill' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 called = false;
 
             promise.then(null, function() {
@@ -215,7 +224,7 @@ module.exports = {
         },
 
         'onRejected callbacks should be executed in the order of their originating calls to then' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resOrder = [];
 
             promise.then(null, function() {
@@ -252,7 +261,7 @@ module.exports = {
         },
 
         'onRejected callback shouldn\'t be called in the same turn of the event loop as the call to then' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resOrder = [];
 
             promise.then(null, function() {
@@ -293,7 +302,7 @@ module.exports = {
 
     'promise.then' : {
         'resulting promise should be fulfilled with same value' : function(test) {
-            var promise = Promise();
+            var promise = Vow.promise();
 
             promise.then().then(function(val) {
                 test.strictEqual(val, 'val');
@@ -304,7 +313,7 @@ module.exports = {
         },
 
         'resulting promise should be rejected with same reason' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 error = new Error('errot');
 
             promise.then().then(null, function(_error) {
@@ -316,7 +325,7 @@ module.exports = {
         },
 
         'resulting promise should be fulfilled with returned value of onFulfilled callback' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resPromise = promise.then(function() {
                     return 'val';
                 });
@@ -330,8 +339,8 @@ module.exports = {
         },
 
         'resulting promise should be fulfilled with same value as returned promise of onFulfilled callback' : function(test) {
-            var promise = Promise(),
-                retPromise = Promise(),
+            var promise = Vow.promise(),
+                retPromise = Vow.promise(),
                 resPromise = promise.then(function() {
                     return retPromise;
                 });
@@ -349,8 +358,8 @@ module.exports = {
         },
 
         'resulting promise should be rejected with same value as returned promise of onRejected callback' : function(test) {
-            var promise = Promise(),
-                retPromise = Promise(),
+            var promise = Vow.promise(),
+                retPromise = Vow.promise(),
                 resPromise = promise.then(function() {
                     return retPromise;
                 }),
@@ -369,7 +378,7 @@ module.exports = {
         },
 
         'resulting promise should be rejected if onFulfilled callback throw exception' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resPromise = promise.then(function() {
                     throw { message : 'error' };
                 });
@@ -383,7 +392,7 @@ module.exports = {
         },
 
         'resulting promise should be rejected if onRejected callback throw exception' : function(test) {
-            var promise = Promise(),
+            var promise = Vow.promise(),
                 resPromise = promise.then(null, function() {
                     throw { message : 'error' };
                 });
@@ -397,9 +406,20 @@ module.exports = {
         }
     },
 
+    'promise.fail' : {
+        'onRejected callback should be called on reject' : function(test) {
+            var promise = Vow.promise();
+            promise.reject('error');
+            promise.fail(function(error) {
+                test.strictEqual(error, 'error');
+                test.done();
+            });
+        }
+    },
+
     'promise.spread' : {
         'onFulfilled argument should be spreaded' : function(test) {
-            var promise = Promise();
+            var promise = Vow.promise();
             promise.spread(function(arg1, arg2, arg3) {
                 test.strictEqual(arguments.length, 3);
                 test.strictEqual(arg1, 1);
@@ -411,23 +431,85 @@ module.exports = {
         }
     },
 
-    'Promise.isPromise' : {
+    'Vow.isPromise' : {
         'should be true if argument is promise' : function(test) {
-            test.ok(Promise.isPromise(Promise()));
+            test.ok(Vow.isPromise(Vow.promise()));
             test.done();
         },
 
         'should be false if argument is non-promise' : function(test) {
-            test.ok(!Promise.isPromise('val'));
+            test.ok(!Vow.isPromise('val'));
             test.done();
         }
     },
 
-    'Promise.when' : {
-        'onFullfilled callback should be called when argument fullfilled' : function(test) {
-            var promise = Promise();
+    'Vow.fulfill' : {
+        'resulting promise should be fulfilled if argument is non-promise' : function(test) {
+            Vow.fulfill('val').then(function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
+        },
 
-            Promise.when(promise, function(val) {
+        'resulting promise should be fulfilled if argument is fulfilled' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.fulfill(promise).then(function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
+
+            promise.fulfill('val');
+        },
+
+        'resulting promise should be fulfilled if argument is rejected' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.fulfill(promise).then(function(val) {
+                test.strictEqual(val, 'error');
+                test.done();
+            });
+
+            promise.reject('error');
+        }
+    },
+
+    'Vow.reject' : {
+        'resulting promise should be rejected if argument is non-promise' : function(test) {
+            Vow.reject('error').fail(function(error) {
+                test.strictEqual(error, 'error');
+                test.done();
+            });
+        },
+
+        'resulting promise should be rejected if argument is rejected' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.reject(promise).fail(function(error) {
+                test.strictEqual(error, 'error');
+                test.done();
+            });
+
+            promise.reject('error');
+        },
+
+        'resulting promise should be rejected if argument is fulfilled' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.reject(promise).fail(function(error) {
+                test.strictEqual(error, 'val');
+                test.done();
+            });
+
+            promise.fulfill('val');
+        }
+    },
+
+    'Vow.when' : {
+        'onFullfilled callback should be called when argument fullfilled' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.when(promise, function(val) {
                 test.strictEqual(val, 'val');
                 test.done();
             });
@@ -436,9 +518,9 @@ module.exports = {
         },
 
         'onRejected callback should be called when argument rejected' : function(test) {
-            var promise = Promise();
+            var promise = Vow.promise();
 
-            Promise.when(promise, null, function(error) {
+            Vow.when(promise, null, function(error) {
                 test.strictEqual(error, 'err');
                 test.done();
             });
@@ -447,18 +529,18 @@ module.exports = {
         },
 
         'onFulfilled callback should be called if argument is non-promise' : function(test) {
-            Promise.when('val', function(val) {
+            Vow.when('val', function(val) {
                 test.strictEqual(val, 'val');
                 test.done();
             });
         }
     },
 
-    'Promise.all' : {
+    'Vow.all' : {
         'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
-            var promises = [Promise(), Promise(), Promise()];
+            var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
 
-            Promise.all(promises).then(function(vals) {
+            Vow.all(promises).then(function(vals) {
                 test.deepEqual(vals, [0, 1, 2]);
                 test.done();
             });
@@ -469,10 +551,10 @@ module.exports = {
         },
 
         'resulting promise should be rejected if any promise rejected' : function(test) {
-            var promises = [Promise(), Promise(), Promise()],
+            var promises = [Vow.promise(), Vow.promise(), Vow.promise()],
                 error = new Error('error');
 
-            Promise.all(promises).then(null, function(_error) {
+            Vow.all(promises).then(null, function(_error) {
                 test.deepEqual(_error, error);
                 test.done();
             });
@@ -483,16 +565,16 @@ module.exports = {
         },
 
         'resulting promise should be fulfilled if argument is empty array' : function(test) {
-            Promise.all([]).then(function(vals) {
+            Vow.all([]).then(function(vals) {
                 test.deepEqual(vals, []);
                 test.done();
             });
         },
 
         'arguments can contains non-promise items' : function(test) {
-            var promises = [Promise(), 1, Promise(), 3];
+            var promises = [Vow.promise(), 1, Vow.promise(), 3];
 
-            Promise.all(promises).then(function(vals) {
+            Vow.all(promises).then(function(vals) {
                 test.deepEqual(vals, [0, 1, 2, 3]);
                 test.done();
             });
@@ -502,11 +584,11 @@ module.exports = {
         }
     },
 
-    'Promise.allResolved' : {
+    'Vow.allResolved' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var promises = [Promise(), Promise(), Promise()];
+            var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
 
-            Promise.allResolved(promises).then(function(_promises) {
+            Vow.allResolved(promises).then(function(_promises) {
                 test.deepEqual(_promises, promises);
                 _promises.forEach(function(promise, i) {
                     test.ok(i % 2? promise.isFulfilled() : promise.isRejected());
@@ -520,29 +602,30 @@ module.exports = {
         },
 
         'resulting promise should be fulfilled if argument is empty array' : function(test) {
-            Promise.allResolved([]).then(function(vals) {
+            Vow.allResolved([]).then(function(vals) {
                 test.deepEqual(vals, []);
                 test.done();
             });
         }
     },
 
-    'Promise.any' : {
+    'Vow.any' : {
         'resulting promise should be fulfilled after any item fulfilled' : function(test) {
-            var promises = [Promise(), Promise(), Promise()];
+            var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
 
-            Promise.any(promises).then(function(val) {
+            Vow.any(promises).then(function(val) {
                 test.strictEqual(val, 'val');
                 test.done();
             });
 
+            promises[2].reject('val');
             promises[1].fulfill('val');
         },
 
         'resulting promise should be rejected after all items rejected' : function(test) {
-            var promises = [Promise(), Promise(), Promise()];
+            var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
 
-            Promise.any(promises).then(null, function(error) {
+            Vow.any(promises).then(null, function(error) {
                 test.strictEqual(error, 'error2');
                 test.done();
             });
@@ -553,15 +636,15 @@ module.exports = {
         },
 
         'resulting promise should be rejected after if argument is empty array' : function(test) {
-            Promise.any([]).then(null, function() {
+            Vow.any([]).then(null, function() {
                 test.done();
             });
         }
     },
 
-    'Promise.timeout' : {
+    'Vow.timeout' : {
         'resulting promise should be rejected after timeout' : function(test) {
-            var resPromise = Promise.timeout(Promise(), 10);
+            var resPromise = Vow.timeout(Vow.promise(), 10);
             setTimeout(function() {
                 test.ok(resPromise.isRejected());
                 test.deepEqual(resPromise.valueOf(), new Error('timed out'));
@@ -570,8 +653,8 @@ module.exports = {
         },
 
         'resulting promise should be fulfilled before timeout' : function(test) {
-            var origPromise = Promise(),
-                resPromise = Promise.timeout(origPromise, 20);
+            var origPromise = Vow.promise(),
+                resPromise = Vow.timeout(origPromise, 20);
 
             setTimeout(function() {
                 origPromise.fulfill('val');
@@ -584,8 +667,8 @@ module.exports = {
         },
 
         'resulting promise should be rejected before timeout' : function(test) {
-            var origPromise = Promise(),
-                resPromise = Promise.timeout(origPromise, 20),
+            var origPromise = Vow.promise(),
+                resPromise = Vow.timeout(origPromise, 20),
                 error = new Error('error');
 
             setTimeout(function() {
