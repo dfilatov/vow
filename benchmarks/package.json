@@ -1,0 +1,12 @@
+{
+    "name" : "promises-library-speed-comparison",
+    "version" : "0.0.1",
+    "dependencies": {
+        "cliff" : "",
+        "benchmark" : "",
+        "q" : "0.8.11",
+        "when" : "1.7.1",
+        "rsvp" : "1.0.0"
+    },
+    "private" : true
+}
