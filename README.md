@@ -75,6 +75,9 @@ Returns a promise that has already been fulfilled with the given ````value````. 
 ####reject(reasonOrPromise)####
 Returns a promise that has already been rejected with the given ````value````. If ````value```` is a promise, returned promise will be rejected with fulfill/rejection value of given promise.
 
+####resolve(value)####
+Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returns ````promise````.
+
 ####when(valueOrPromise, [onFulfilled], [onRejected])####
 ####all(promisesOrValues)####
 ####allResolved(promisesOrValues)####
