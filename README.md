@@ -26,12 +26,12 @@ var promise = Vow.promise();
 ````
 ###Promise API###
 ####fulfill(value)####
-Fulfill promise with given value
+Fulfill promise with given ````value````
 ````javascript
 promise.fulfill(value);
 ````
 ####reject(reason)####
-Reject promise with given reason
+Reject promise with given ````reason````
 ````javascript
 promise.reject(error);
 ````
@@ -52,8 +52,8 @@ promise.isResolved();
 ````
 ####then([onFulfilled], [onRejected])####
 Arranges for:
-  * onFulfilled to be called with the value after promise is fulfilled,
-  * onRejected to be called with the rejection reason after promise is rejected.
+  * ````onFulfilled```` to be called with the value after promise is fulfilled,
+  * ````onRejected```` to be called with the rejection reason after promise is rejected.
  
 Returns a new promise. See [Promises/A+ specification](https://github.com/promises-aplus/promises-spec) for details.
 
@@ -61,14 +61,20 @@ Returns a new promise. See [Promises/A+ specification](https://github.com/promis
 promise.then(onFulfilled, onRejected);
 ````
 ####fail(onRejected)####
-Arranges to call onRejected on the promise's rejection reason if it is rejected.
+Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected.
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
 
 ###Vow API###
-####isPromise(valueOrPromise)####
-####fulfill(valueOrPromise)####
+####isPromise(value)####
+Returns whether the given ````value```` is a promise.
+
+####fulfill(value)####
+Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returned promise will be fulfilled with fulfill/rejection value of given promise.
+
 ####reject(reasonOrPromise)####
+Returns a promise that has already been rejected with the given ````value````. If ````value```` is a promise, returned promise will be rejected with fulfill/rejection value of given promise.
+
 ####when(valueOrPromise, [onFulfilled], [onRejected])####
 ####all(promisesOrValues)####
 ####allResolved(promisesOrValues)####
