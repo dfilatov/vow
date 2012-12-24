@@ -1,7 +1,8 @@
+[![Promises A+](http://promises-aplus.github.com/promises-spec/assets/logo-small.png "Promises A+ specification")](http://promises-aplus.github.com/promises-spec)
 Vow [![Build Status](https://secure.travis-ci.org/dfilatov/jspromise.png)](http://travis-ci.org/dfilatov/jspromise)
 =========
 
-Promises/A+ specification compatible promises library.
+Promises/A+ implementation.
 See https://github.com/promises-aplus/promises-spec.
 
 Getting Started
