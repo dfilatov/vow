@@ -1,4 +1,4 @@
-[![Promises A+](http://promises-aplus.github.com/promises-spec/assets/logo-small.png "Promises A+ specification")](http://promises-aplus.github.com/promises-spec)
+<a href="http://promises-aplus.github.com/promises-spec"><img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png" align="right" /></a>
 Vow [![Build Status](https://secure.travis-ci.org/dfilatov/jspromise.png)](http://travis-ci.org/dfilatov/jspromise)
 =========
 
@@ -70,17 +70,24 @@ Like "then", but "spreads" the array into a variadic value handler.
 ####isPromise(value)####
 Returns whether the given ````value```` is a promise.
 
+####when(valueOrPromise, [onFulfilled], [onRejected])####
+
+####isFulfilled(value)####
+
+####isRejected(value)####
+
+####isResolved(value)####
+
 ####fulfill(value)####
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returned promise will be fulfilled with fulfill/rejection value of given promise.
 
-####reject(reasonOrPromise)####
-Returns a promise that has already been rejected with the given ````value````. If ````value```` is a promise, returned promise will be rejected with fulfill/rejection value of given promise.
+####reject(reason)####
+Returns a promise that has already been rejected with the given ````reason````. If ````reason```` is a promise, returned promise will be rejected with fulfill/rejection value of given promise.
 
 ####resolve(value)####
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returns ````promise````.
 
-####when(valueOrPromise, [onFulfilled], [onRejected])####
-####all(promisesOrValues)####
-####allResolved(promisesOrValues)####
-####any(promisesOrValues)####
+####all(promises)####
+####allResolved(promises)####
+####any(promises)####
 ####timeout(promise, timeout)####
