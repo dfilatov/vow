@@ -431,6 +431,100 @@ module.exports = {
         }
     },
 
+    'Vow.when' : {
+        'onFullfilled callback should be called when argument fullfilled' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.when(promise, function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
+
+            promise.fulfill('val');
+        },
+
+        'onRejected callback should be called when argument rejected' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.when(promise, null, function(error) {
+                test.strictEqual(error, 'err');
+                test.done();
+            });
+
+            promise.reject('err');
+        },
+
+        'onFulfilled callback should be called if argument is non-promise' : function(test) {
+            Vow.when('val', function(val) {
+                test.strictEqual(val, 'val');
+                test.done();
+            });
+        }
+    },
+
+    'Vow.isFulfilled' : {
+        'should return promise state if argument is promise' : function(test) {
+            var pendingPromise = Vow.promise();
+            test.ok(Vow.isFulfilled(pendingPromise) === pendingPromise.isFulfilled());
+
+            var fulfilledPromise = Vow.promise('val');
+            test.ok(Vow.isFulfilled(fulfilledPromise) === fulfilledPromise.isFulfilled());
+
+            var rejectedPromise = Vow.promise();
+            rejectedPromise.reject('error');
+            test.ok(Vow.isFulfilled(rejectedPromise) === rejectedPromise.isFulfilled());
+
+            test.done();
+        },
+
+        'should be true if argument is non-promise' : function(test) {
+            test.ok(Vow.isFulfilled('val'))
+            test.done();
+        }
+    },
+
+    'Vow.isRejected' : {
+        'should return promise state if argument is promise' : function(test) {
+            var pendingPromise = Vow.promise();
+            test.ok(Vow.isRejected(pendingPromise) === pendingPromise.isRejected());
+
+            var fulfilledPromise = Vow.promise('val');
+            test.ok(Vow.isRejected(fulfilledPromise) === fulfilledPromise.isRejected());
+
+            var rejectedPromise = Vow.promise();
+            rejectedPromise.reject('error');
+            test.ok(Vow.isRejected(rejectedPromise) === rejectedPromise.isRejected());
+
+            test.done();
+        },
+
+        'should be false if argument is non-promise' : function(test) {
+            test.ok(!Vow.isRejected('val'));
+            test.done();
+        }
+    },
+
+    'Vow.isResolved' : {
+        'should return promise state if argument is promise' : function(test) {
+            var pendingPromise = Vow.promise();
+            test.ok(Vow.isResolved(pendingPromise) === pendingPromise.isResolved());
+
+            var fulfilledPromise = Vow.promise('val');
+            test.ok(Vow.isResolved(fulfilledPromise) === fulfilledPromise.isResolved());
+
+            var rejectedPromise = Vow.promise();
+            rejectedPromise.reject('error');
+            test.ok(Vow.isResolved(rejectedPromise) === rejectedPromise.isResolved());
+
+            test.done();
+        },
+
+        'should be true if argument is non-promise' : function(test) {
+            test.ok(Vow.isResolved('val'));
+            test.done();
+        }
+    },
+
     'Vow.isPromise' : {
         'should be true if argument is promise' : function(test) {
             test.ok(Vow.isPromise(Vow.promise()));
@@ -520,37 +614,6 @@ module.exports = {
             var promise = Vow.resolve('val');
 
             promise.then(function(val) {
-                test.strictEqual(val, 'val');
-                test.done();
-            });
-        }
-    },
-
-    'Vow.when' : {
-        'onFullfilled callback should be called when argument fullfilled' : function(test) {
-            var promise = Vow.promise();
-
-            Vow.when(promise, function(val) {
-                test.strictEqual(val, 'val');
-                test.done();
-            });
-
-            promise.fulfill('val');
-        },
-
-        'onRejected callback should be called when argument rejected' : function(test) {
-            var promise = Vow.promise();
-
-            Vow.when(promise, null, function(error) {
-                test.strictEqual(error, 'err');
-                test.done();
-            });
-
-            promise.reject('err');
-        },
-
-        'onFulfilled callback should be called if argument is non-promise' : function(test) {
-            Vow.when('val', function(val) {
                 test.strictEqual(val, 'val');
                 test.done();
             });
