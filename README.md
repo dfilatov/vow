@@ -20,6 +20,30 @@ Also RequireJS module format supported.
 
 API
 ---
+  * [Creating promise](#vowpromise)
+  * [Promise API](#promise-api)
+    * [fulfill](#fulfillvalue)
+    * [reject](#rejectreason)
+    * [isFulfilled](#isfulfilled)
+    * [isRejected](#isrejected)
+    * [isResolved](#isresolved)
+    * [then](#thenonfulfilled-onrejected)
+    * [fail](#failonrejected)
+    * [spread](#spreadonfulfilled-onrejected)
+  * [Vow API](#vow-api)
+    * [when](#whenvalue-onfulfilled-onrejected) 
+    * [isPromise](#ispromisevalue)
+    * [isFulfilled](#isfulfilledvalue)
+    * [isRejected](#isrejectedvalue)
+    * [isResolved](#isresolvededvalue)
+    * [fulfill](#fulfillvalue-1)
+    * [reject](#rejectreason-1)
+    * [resolve](#resolvevalue)
+    * [all](#allpromises)
+    * [allResolved](#allresolvedpromises)
+    * [any](#anypromises)
+    * [timeout](#timeoutpromise-timeout)
+
 ####Vow.promise()####
 Create promise
 ````javascript
@@ -86,15 +110,16 @@ promise.spread(onFulfilled, onRejected);
 ````
 
 ###Vow API###
+
+####when(value, [onFulfilled], [onRejected])####
+Static equivalent for promise.then. If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+
 ####isPromise(value)####
 Returns whether the given ````value```` is a promise.
 ````javascript
 Vow.isPromise('value'); // returns false
 Vow.isPromise(Vow.promise()); // returns true
 ````
-
-####when(value, [onFulfilled], [onRejected])####
-Static equivalent for promise.then. If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####isFulfilled(value)####
 Returns whether the given ````value```` is fulfilled. If ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
