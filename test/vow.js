@@ -431,6 +431,21 @@ module.exports = {
         }
     },
 
+    'promise.done' : {
+        'exception should be throwed' : function(test) {
+            var promise = Vow.promise(),
+                e = Error();
+
+            promise.done();
+            promise.reject(e);
+
+            process.once('uncaughtException', function(_e) {
+                test.strictEqual(_e, e);
+                test.done();
+            });
+        }
+    },
+
     'Vow.when' : {
         'onFullfilled callback should be called when argument fullfilled' : function(test) {
             var promise = Vow.promise();
@@ -459,6 +474,26 @@ module.exports = {
                 test.strictEqual(val, 'val');
                 test.done();
             });
+        }
+    },
+
+    'Vow.done' : {
+        'exception should be throwed if argument is a promise' : function(test) {
+            var promise = Vow.promise(),
+                e = Error();
+
+            promise.reject(e);
+            Vow.done(promise);
+
+            process.once('uncaughtException', function(_e) {
+                test.strictEqual(_e, e);
+                test.done();
+            });
+        },
+
+        'nothing to be happen if argument is not a promise' : function(test) {
+            Vow.done('val');
+            test.done();
         }
     },
 
