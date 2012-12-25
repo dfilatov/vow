@@ -30,9 +30,13 @@ API
     * [then](#thenonfulfilled-onrejected)
     * [fail](#failonrejected)
     * [spread](#spreadonfulfilled-onrejected)
+    * [done](#done)
   * [Vow API](#vow-api)
-    * [when](#whenvalue-onfulfilled-onrejected) 
     * [isPromise](#ispromisevalue)
+    * [when](#whenvalue-onfulfilled-onrejected) 
+    * [fail](#failvalue-onrejected)
+    * [spread](#spreadvalue-onfulfilled-onrejected) 
+    * [done](#donevalue)
     * [isFulfilled](#isfulfilledvalue)
     * [isRejected](#isrejectedvalue)
     * [isResolved](#isresolvededvalue)
@@ -103,16 +107,16 @@ promise.then(
 ````
 ####fail(onRejected)####
 Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected.
+
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
 ````javascript
 promise.spread(onFulfilled, onRejected);
 ````
+####done()####
+Terminate a chain of promises. If the promise is rejected, throws it as an exception in a future turn of the event loop.
 
 ###Vow API###
-
-####when(value, [onFulfilled], [onRejected])####
-Static equivalent for promise.then. If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####isPromise(value)####
 Returns whether the given ````value```` is a promise.
@@ -120,6 +124,32 @@ Returns whether the given ````value```` is a promise.
 Vow.isPromise('value'); // returns false
 Vow.isPromise(Vow.promise()); // returns true
 ````
+
+####when(value, [onFulfilled], [onRejected])####
+Static equivalent for [promise.then](#thenonfulfilled-onrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+
+####fail(value, onRejected)####
+Static equivalent for [promise.fail](#failonrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+
+####spread(value, [onFulfilled], [onRejected])####
+Static equivalent for [promise.spread](#spreadonfulfilled-onrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+It usefull with Vow.all, Vow.allResolved methods.
+````javascript
+var promise1 = Vow.promise(),
+    promise2 = Vow.promise();
+
+Vow.spread(
+    Vow.all([promise1, promise2]),
+    function(arg1, arg2) {
+        // arg1 should be "1", arg2 should be "'two'"
+    });
+    
+promise1.fulfill(1);
+promise2.fulfill('two');
+````
+
+####done(value)####
+Static equivalent for [promise.done](#done). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise. 
 
 ####isFulfilled(value)####
 Returns whether the given ````value```` is fulfilled. If ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
