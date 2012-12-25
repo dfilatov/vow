@@ -477,6 +477,19 @@ module.exports = {
         }
     },
 
+    'Vow.fail' : {
+        'onRejected callback should be called when argument rejected' : function(test) {
+            var promise = Vow.promise();
+
+            Vow.fail(promise, function(error) {
+                test.strictEqual(error, 'err');
+                test.done();
+            });
+
+            promise.reject('err');
+        }
+    },
+
     'Vow.done' : {
         'exception should be throwed if argument is a promise' : function(test) {
             var promise = Vow.promise(),
