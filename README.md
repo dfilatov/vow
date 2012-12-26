@@ -111,9 +111,19 @@ Arranges to call ````onRejected```` on the promise's rejection reason if it is r
 
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
+It useful with Vow.all, Vow.allResolved methods.
 ````javascript
-promise.spread(onFulfilled, onRejected);
+var promise1 = Vow.promise(),
+    promise2 = Vow.promise();
+
+Vow.all([promise1, promise2]).spread(function(arg1, arg2) {
+    // arg1 should be "1", arg2 should be "'two'"
+});
+    
+promise1.fulfill(1);
+promise2.fulfill('two');
 ````
+
 ####done()####
 Terminate a chain of promises. If the promise is rejected, throws it as an exception in a future turn of the event loop.
 ````javascript
@@ -161,20 +171,6 @@ Static equivalent for [promise.fail](#failonrejected). If given ````value```` is
 
 ####spread(value, [onFulfilled], [onRejected])####
 Static equivalent for [promise.spread](#spreadonfulfilled-onrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
-It usefull with Vow.all, Vow.allResolved methods.
-````javascript
-var promise1 = Vow.promise(),
-    promise2 = Vow.promise();
-
-Vow.spread(
-    Vow.all([promise1, promise2]),
-    function(arg1, arg2) {
-        // arg1 should be "1", arg2 should be "'two'"
-    });
-    
-promise1.fulfill(1);
-promise2.fulfill('two');
-````
 
 ####done(value)####
 Static equivalent for [promise.done](#done). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise. 
