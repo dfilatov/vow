@@ -116,6 +116,9 @@ promise.spread(onFulfilled, onRejected);
 ####done()####
 Terminate a chain of promises. If the promise is rejected, throws it as an exception in a future turn of the event loop.
 
+####timeout(timeout)####
+Returns a new promise that to be rejected after a ````timeout```` if promise does not resolved beforehand.
+
 ###Vow API###
 
 ####isPromise(value)####
@@ -179,4 +182,4 @@ Returns a promise to be fulfilled only after all the items in ````promises```` i
 Returns a promise to be fulfilled only any item in ````promises```` is fulfilled, or to be rejected when the all items is rejected.
 
 ####timeout(promise, timeout)####
-Returns a promise to be rejected after a ````timeout```` if ````promise```` does not resolved beforehand.
+Static equivalent for [promise.timeout](#timeoutimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
