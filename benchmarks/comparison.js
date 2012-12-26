@@ -39,7 +39,7 @@ var cliff = require('cliff'),
             Object.keys(data).forEach(function(key) {
                 var defer = When.defer();
                 When.all(data[key].map(function(val) {
-                        var defer = Q.defer();
+                        var defer = When.defer();
                         toResolve.push({ defer : defer, val : val });
                         return defer.promise;
                     }))
