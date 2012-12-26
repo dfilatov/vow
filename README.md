@@ -116,9 +116,28 @@ promise.spread(onFulfilled, onRejected);
 ````
 ####done()####
 Terminate a chain of promises. If the promise is rejected, throws it as an exception in a future turn of the event loop.
+````javascript
+var promise = Vow.promise();
+promise.reject(Error('Internal error'));
+promise.done(); // exception to be throwed
+````
 
 ####timeout(timeout)####
 Returns a new promise that to be rejected after a ````timeout```` if promise does not resolved beforehand.
+````javascript
+var promise = Vow.promise(),
+    promiseWithTimeout = promise.timeout(100);
+
+setTimeout(
+    function() {
+        promise.fulfill('ok');
+    },
+    200);
+
+promiseWithTimeout.fail(function(e) {
+    // promiseWithTimeout to be rejected after 100ms
+});
+````
 
 ###Vow API###
 
