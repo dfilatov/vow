@@ -31,6 +31,7 @@ API
     * [fail](#failonrejected)
     * [spread](#spreadonfulfilled-onrejected)
     * [done](#done)
+    * [timeout](#timeouttimeout)
   * [Vow API](#vow-api)
     * [isPromise](#ispromisevalue)
     * [when](#whenvalue-onfulfilled-onrejected) 
@@ -182,4 +183,4 @@ Returns a promise to be fulfilled only after all the items in ````promises```` i
 Returns a promise to be fulfilled only any item in ````promises```` is fulfilled, or to be rejected when the all items is rejected.
 
 ####timeout(promise, timeout)####
-Static equivalent for [promise.timeout](#timeoutimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+Static equivalent for [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
