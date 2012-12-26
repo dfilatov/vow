@@ -126,16 +126,21 @@ promise.done(); // exception to be throwed
 Returns a new promise that to be rejected after a ````timeout```` if promise does not resolved beforehand.
 ````javascript
 var promise = Vow.promise(),
-    promiseWithTimeout = promise.timeout(100);
+    promiseWithTimeout1 = promise.timeout(50),
+    promiseWithTimeout2 = promise.timeout(200);
 
 setTimeout(
     function() {
         promise.fulfill('ok');
     },
-    200);
+    100);
 
-promiseWithTimeout.fail(function(e) {
-    // promiseWithTimeout to be rejected after 100ms
+promiseWithTimeout1.fail(function(e) {
+    // promiseWithTimeout to be rejected after 50ms
+});
+
+promiseWithTimeout2.then(function(val) {
+    // promiseWithTimeout to be fulfilled with "'ok'" value
 });
 ````
 
