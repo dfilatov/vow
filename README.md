@@ -170,19 +170,24 @@ Static equivalent for [promise.then](#thenonfulfilled-onrejected). If given ````
 Static equivalent for [promise.fail](#failonrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####spread(value, [onFulfilled], [onRejected])####
-Static equivalent for [promise.spread](#spreadonfulfilled-onrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+Static equivalent for [promise.spread](#spreadonfulfilled-onrejected).
+If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####done(value)####
-Static equivalent for [promise.done](#done). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise. 
+Static equivalent for [promise.done](#done).
+If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise. 
 
 ####isFulfilled(value)####
-Returns whether the given ````value```` is fulfilled. If ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+Static equivalent for [promise.isFulfilled](#isfulfilled).
+If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####isRejected(value)####
-Returns whether the given ````value```` is rejected. If ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+Static equivalent for [promise.isRejected](#isrejected).
+If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####isResolved(value)####
-Returns whether the given ````value```` is resolved (fulfilled or rejected). If ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+Static equivalent for [promise.isResolved](#isresolved).
+If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####fulfill(value)####
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returned promise will be fulfilled with fulfill/rejection value of given promise.
@@ -194,13 +199,13 @@ Returns a promise that has already been rejected with the given ````reason````. 
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returns ````promise````.
 
 ####all(promises)####
-Returns a promise to be fulfilled only after all the items in ````promises```` is fulfilled, or to be rejected when the first promise is rejected.
+Returns a promise to be fulfilled only after all items in ````promises```` is fulfilled, or to be rejected when the first promise is rejected.
 
 ####allResolved(promises)####
-Returns a promise to be fulfilled only after all the items in ````promises```` is resolved.
+Returns a promise to be fulfilled only after all items in ````promises```` is resolved.
 
 ####any(promises)####
-Returns a promise to be fulfilled only any item in ````promises```` is fulfilled, or to be rejected when the all items is rejected.
+Returns a promise to be fulfilled only any item in ````promises```` is fulfilled, or to be rejected when all items is rejected (with reason of first rejected item).
 
 ####timeout(promise, timeout)####
 Static equivalent for [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
