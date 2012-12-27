@@ -27,6 +27,7 @@ API
     * [isFulfilled](#isfulfilled)
     * [isRejected](#isrejected)
     * [isResolved](#isresolved)
+    * [valueOf](#valueof)
     * [then](#thenonfulfilled-onrejected)
     * [fail](#failonrejected)
     * [spread](#spreadonfulfilled-onrejected)
@@ -75,6 +76,7 @@ promise.isFulfilled(); // returns false
 promise.fulfill('completed');
 promise.isFulfilled(); // returns true
 ````
+
 ####isRejected()####
 Returns whether the promise is rejected
 ````javascript
@@ -83,6 +85,7 @@ promise.isRejected(); // returns false
 promise.reject(Error('internal error'));
 promise.isRejected(); // returns true
 ````
+
 ####isResolved()####
 Returns whether the promise is fulfilled or rejected
 ````javascript
@@ -91,6 +94,13 @@ promise.isResolved(); // returns false
 promise.fulfill('completed'); // or promise.reject(Error('internal error'));
 promise.isResolved(); // returns true
 ````
+
+####valueOf()####
+Returns value of the promise:
+  * value of fulfillment, if promise is fullfilled 
+  * reason of rejection, if promise is rejected 
+  * undefined, if promise is not resolved
+
 ####then([onFulfilled], [onRejected])####
 Arranges for:
   * ````onFulfilled```` to be called with the value after promise is fulfilled,
@@ -106,12 +116,13 @@ promise.then(
     function() {// to be called after promise is rejected        
     });
 ````
+
 ####fail(onRejected)####
 Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected.
 
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
-It useful with Vow.all, Vow.allResolved methods.
+It useful with [Vow.all](#allpromises), [Vow.allResolved](#allresolvedpromises) methods.
 ````javascript
 var promise1 = Vow.promise(),
     promise2 = Vow.promise();
@@ -198,14 +209,27 @@ Returns a promise that has already been rejected with the given ````reason````. 
 ####resolve(value)####
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returns ````promise````.
 
-####all(promises)####
-Returns a promise to be fulfilled only after all items in ````promises```` is fulfilled, or to be rejected when the first promise is rejected.
+####all(promisesOrValues)####
+Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is fulfilled, or to be rejected when the first promise is rejected.
 
-####allResolved(promises)####
-Returns a promise to be fulfilled only after all items in ````promises```` is resolved.
+####allResolved(promisesOrValues)####
+Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is resolved.
+````javascript
+var promise1 = Vow.promise(),
+    promise2 = Vow.promise();
+    
+Vow.allResolved([promise1, promise2])
+    .spread(function(promise1, promise2) {
+        promise1.valueOf(); // returns 'error'
+        promise2.valueOf(); // returns 'ok'
+    });
 
-####any(promises)####
-Returns a promise to be fulfilled only any item in ````promises```` is fulfilled, or to be rejected when all items is rejected (with reason of first rejected item).
+promise1.reject('error');
+promise2.fulfill('ok');
+````
+
+####any(promisesOrValues)####
+Returns a promise to be fulfilled only any item in ````promisesOrValues```` is fulfilled, or to be rejected when all items is rejected (with reason of first rejected item).
 
 ####timeout(promise, timeout)####
 Static equivalent for [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
