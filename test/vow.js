@@ -300,6 +300,33 @@ module.exports = {
         }
     },
 
+    'promise.valueOf' : {
+        'should return undefined if promise is unresolved' : function(test) {
+            var promise = Vow.promise();
+
+            test.strictEqual(promise.valueOf(), undefined);
+            test.done();
+        },
+
+        'should return value of fulfillment if promise if fulfilled' : function(test) {
+            var promise = Vow.promise();
+            promise.fulfill('ok');
+
+            test.strictEqual(promise.valueOf(), 'ok');
+            test.done();
+        },
+
+        'should return reason of rejection if promise if rejected' : function(test) {
+            var promise = Vow.promise(),
+                error = Error();
+
+            promise.reject(error);
+
+            test.strictEqual(promise.valueOf(), error);
+            test.done();
+        }
+    },
+
     'promise.then' : {
         'resulting promise should be fulfilled with same value' : function(test) {
             var promise = Vow.promise();
@@ -819,7 +846,7 @@ module.exports = {
             promises[1].reject('error1');
         },
 
-        'resulting promise should be rejected after if argument is empty array' : function(test) {
+        'resulting promise should be rejected if argument is empty array' : function(test) {
             Vow.any([]).then(null, function() {
                 test.done();
             });
