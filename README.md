@@ -45,9 +45,9 @@ API
     * [fulfill](#fulfillvalue-1)
     * [reject](#rejectreason-1)
     * [resolve](#resolvevalue)
-    * [all](#allpromises)
-    * [allResolved](#allresolvedpromises)
-    * [any](#anypromises)
+    * [all](#allpromisesorvalues)
+    * [allResolved](#allresolvedpromisesorvalues)
+    * [any](#anypromisesorvalues)
     * [timeout](#timeoutpromise-timeout)
 
 ####Vow.promise()####
