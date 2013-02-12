@@ -1,7 +1,7 @@
 var cliff = require('cliff'),
     benchmark = require('benchmark'),
     fs = require('fs'),
-    data = JSON.parse(fs.readFileSync(__dirname + '/data.json', 'utf8')),
+    data = require('./data'),
     Vow = require('..'),
     Q = require('q'),
     When = require('when'),
