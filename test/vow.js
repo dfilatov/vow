@@ -444,6 +444,26 @@ module.exports = {
         }
     },
 
+    'promise.always' : {
+        'onResolved callback should be called on fulfill' : function(test) {
+            var promise = Vow.promise();
+            promise.fulfill('ok');
+            promise.always(function(val) {
+                test.strictEqual(val, 'ok');
+                test.done();
+            });
+        },
+
+        'onResolved callback should be called on reject' : function(test) {
+            var promise = Vow.promise();
+            promise.reject('error');
+            promise.always(function(error) {
+                test.strictEqual(error, 'error');
+                test.done();
+            });
+        }
+    },
+
     'promise.spread' : {
         'onFulfilled argument should be spreaded' : function(test) {
             var promise = Vow.promise();
