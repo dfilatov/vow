@@ -120,10 +120,10 @@ promise.then(
 ````
 
 ####fail(onRejected)####
-Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected.
+Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected. Shortcut for ````then(null, onRejected)````.
 
 ####always(onResolved)####
-Arranges to call ````onResolved```` on either the promise's value if it is fulfilled, or on it's rejection reason if it is rejected.
+Arranges to call ````onResolved```` on either the promise's value if it is fulfilled, or on it's rejection reason if it is rejected. Shortcut for ````then(onResolved, onResolved)````.
 
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
