@@ -30,6 +30,7 @@ API
     * [valueOf](#valueof)
     * [then](#thenonfulfilled-onrejected)
     * [fail](#failonrejected)
+    * [always](#alwaysonresolved)
     * [spread](#spreadonfulfilled-onrejected)
     * [done](#done)
     * [timeout](#timeouttimeout)
@@ -37,6 +38,7 @@ API
     * [isPromise](#ispromisevalue)
     * [when](#whenvalue-onfulfilled-onrejected) 
     * [fail](#failvalue-onrejected)
+    * [always](#alwaysvalue-onresolved)
     * [spread](#spreadvalue-onfulfilled-onrejected) 
     * [done](#donevalue)
     * [isFulfilled](#isfulfilledvalue)
@@ -120,6 +122,9 @@ promise.then(
 ####fail(onRejected)####
 Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected.
 
+####always(onResolved)####
+Arranges to call ````onResolved```` on either the promise's value if it is fulfilled, or on it's rejection reason if it is rejected.
+
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
 It useful with [Vow.all](#allpromises), [Vow.allResolved](#allresolvedpromises) methods.
@@ -179,6 +184,9 @@ Static equivalent for [promise.then](#thenonfulfilled-onrejected). If given ````
 
 ####fail(value, onRejected)####
 Static equivalent for [promise.fail](#failonrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+
+####always(value, onResolved)####
+Static equivalent for [promise.always](#alwaysonresolved). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####spread(value, [onFulfilled], [onRejected])####
 Static equivalent for [promise.spread](#spreadonfulfilled-onrejected).
