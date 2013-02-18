@@ -109,21 +109,32 @@ Arranges for:
   * ````onRejected```` to be called with the rejection reason after promise is rejected.
  
 Returns a new promise. See [Promises/A+ specification](https://github.com/promises-aplus/promises-spec) for details.
-
 ````javascript
 var promise = Vow.promise();
 promise.then(
-    function() { // to be called after promise is fulfilled
-    },
-    function() {// to be called after promise is rejected        
-    });
+    function() { }, // to be called after promise is fulfilled
+    function() { }); // to be called after promise is rejected
 ````
 
 ####fail(onRejected)####
 Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected. Shortcut for ````then(null, onRejected)````.
+````javascript
+var promise = Vow.promise();
+promise.fail(
+    function() { // to be called after promise is rejected
+    });
+promise.reject(Error('error'));
+````
 
 ####always(onResolved)####
 Arranges to call ````onResolved```` on either the promise's value if it is fulfilled, or on it's rejection reason if it is rejected. Shortcut for ````then(onResolved, onResolved)````.
+````javascript
+var promise = Vow.promise();
+promise.always(
+    function() { // to be called after promise is fulfilled or rejected
+    });
+promise.fulfill('ok'); // or promise.reject(Error('error'));
+````
 
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
