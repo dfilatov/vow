@@ -20,7 +20,7 @@ Also RequireJS module format supported.
 
 API
 ---
-  * [Creating promise](#vowpromise)
+  * [Creating promise](#vowpromisevalue)
   * [Promise API](#promise-api)
     * [fulfill](#fulfillvalue)
     * [reject](#rejectreason)
@@ -52,10 +52,12 @@ API
     * [any](#anypromisesorvalues)
     * [timeout](#timeoutpromise-timeout)
 
-####Vow.promise()####
-Create promise
+####Vow.promise([value])####
+Create a new promise if no ````value```` given, or create a new fulfilled promise if the ````value```` is not a promise, or returns ````value```` if the given ````value```` is a promise.
 ````javascript
-var promise = Vow.promise();
+var promise = Vow.promise(), // create a new promise
+    fulfilledPromise = Vow.promise('ok'), // create a new fulfilled promise
+    anotherPromise = Vow.promise(existingPromise); // anotherPromise is equal an existingPromise
 ````
 ###Promise API###
 ####fulfill(value)####
