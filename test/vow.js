@@ -834,14 +834,14 @@ module.exports = {
         },
 
         'arguments can contains non-promise items' : function(test) {
-            var promises = [Vow.promise(), 1, Vow.promise(), 3];
+            var promises = [0, Vow.promise(), Vow.promise(), 3];
 
             Vow.all(promises).then(function(vals) {
                 test.deepEqual(vals, [0, 1, 2, 3]);
                 test.done();
             });
 
-            promises[0].fulfill(0);
+            promises[1].fulfill(1);
             promises[2].fulfill(2);
         }
     },
