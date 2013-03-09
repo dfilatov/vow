@@ -34,6 +34,7 @@ API
     * [spread](#spreadonfulfilled-onrejected)
     * [done](#done)
     * [timeout](#timeouttimeout)
+    * [sync](#syncpromise)
   * [Vow API](#vow-api)
     * [isPromise](#ispromisevalue)
     * [when](#whenvalue-onfulfilled-onrejected) 
@@ -182,6 +183,9 @@ promiseWithTimeout2.then(function(val) {
     // promiseWithTimeout to be fulfilled with "'ok'" value
 });
 ````
+
+####sync(withPromise)####
+Synchronize promise state with ````withPromise```` state.
 
 ###Vow API###
 
