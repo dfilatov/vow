@@ -942,5 +942,54 @@ module.exports = {
                 test.done();
             }, 20);
         }
+    },
+
+    'Vow.shallow' : {
+        'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
+            var promises = {a: Vow.promise(), b: Vow.promise(), c:Vow.promise()};
+
+            Vow.shallow(promises).then(function(vals) {
+                test.deepEqual(vals, {a: 'a', b:'b', c:'c'});
+                test.done();
+            });
+
+            Object.keys(promises).forEach(function(promise, i) {
+                promises[promise].fulfill(promise);
+            });
+        },
+
+        'resulting promise should be rejected if any promise rejected' : function(test) {
+            var promises = {a: Vow.promise(), b: Vow.promise(), c:Vow.promise()},
+                error = new Error('error');
+
+            Vow.shallow(promises).then(null, function(_error) {
+                test.deepEqual(_error, error);
+                test.done();
+            });
+
+            Object.keys(promises).forEach(function(promise, i) {
+                var p = promises[promise];
+                i % 2? p.fulfill() : p.reject(error);
+            });
+        },
+
+        'resulting promise should be fulfilled if argument is empty object' : function(test) {
+            Vow.shallow({}).then(function(vals) {
+                test.deepEqual(vals, {});
+                test.done();
+            });
+        },
+
+        'object properties can contains non-promise items' : function(test) {
+            var promises = {a: 'a', b: Vow.promise(), c: Vow.promise(), d: 3, e: undefined};
+
+            Vow.shallow(promises).then(function(vals) {
+                test.deepEqual(vals, {a: 'a', b: 1, c: 2, d: 3, e: undefined});
+                test.done();
+            });
+
+            promises.b.fulfill(1);
+            promises.c.fulfill(2);
+        }
     }
 };
