@@ -52,6 +52,7 @@ API
     * [allResolved](#allresolvedpromisesorvalues)
     * [any](#anypromisesorvalues)
     * [timeout](#timeoutpromise-timeout)
+    * [shallow](#shallowobject)
 
 ####Vow.promise([value])####
 Create a new promise if no ````value```` given, or create a new fulfilled promise if the ````value```` is not a promise, or returns ````value```` if the given ````value```` is a promise.
@@ -267,3 +268,6 @@ Returns a promise to be fulfilled only any item in ````promisesOrValues```` is f
 
 ####timeout(promise, timeout)####
 Static equivalent for [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+
+####shallow(object)####
+Returns a promise resolving when all of the object properties have been resolved.
