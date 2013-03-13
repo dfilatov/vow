@@ -130,11 +130,11 @@ promise.reject(Error('error'));
 ````
 
 ####always(onResolved)####
-Arranges to call ````onResolved```` on either the promise's value if it is fulfilled, or on it's rejection reason if it is rejected. Shortcut for ````then(onResolved, onResolved)````.
+Arranges to call ````onResolved```` on the promise if it is fulfilled or rejected.
 ````javascript
 var promise = Vow.promise();
 promise.always(
-    function() { // to be called after promise is fulfilled or rejected
+    function(promise) { // to be called after promise is fulfilled or rejected
     });
 promise.fulfill('ok'); // or promise.reject(Error('error'));
 ````
@@ -245,6 +245,31 @@ Returns a promise that has already been fulfilled with the given ````value````. 
 
 ####all(promisesOrValues)####
 Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is fulfilled, or to be rejected when the first promise is rejected.
+````javascript
+var promise1 = Vow.promise(),
+    promise2 = Vow.promise();
+    
+Vow.all([promise1, promise2])
+    .then(function(value) {
+        // value is [1, 2]
+    });
+
+promise1.fulfill(1);
+promise2.fulfill(2);
+````
+or:
+````javascript
+var promise1 = Vow.promise(),
+    promise2 = Vow.promise();
+    
+Vow.all({ a : promise1, b : promise2 })
+    .then(function(value) {
+        // value is { a : 1, b : 2 }
+    });
+
+promise1.fulfill(1);
+promise2.fulfill(2);
+````
 
 ####allResolved(promisesOrValues)####
 Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is resolved.
