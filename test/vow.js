@@ -828,7 +828,7 @@ module.exports = {
         }
     },
 
-    'Vow.all' : {
+    'Vow.all(array)' : {
         'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
             var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
 
@@ -876,7 +876,56 @@ module.exports = {
         }
     },
 
-    'Vow.allResolved' : {
+    'Vow.all(object)' : {
+        'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
+            var promises = { a : Vow.promise(), b : Vow.promise(), c :Vow.promise() };
+
+            Vow.all(promises).then(function(vals) {
+                test.deepEqual(vals, {a : 'a', b :'b', c :'c'});
+                test.done();
+            });
+
+            Object.keys(promises).forEach(function(promise) {
+                promises[promise].fulfill(promise);
+            });
+        },
+
+        'resulting promise should be rejected if any promise rejected' : function(test) {
+            var promises = { a : Vow.promise(), b : Vow.promise(), c :Vow.promise() },
+                error = new Error('error');
+
+            Vow.all(promises).fail(function(_error) {
+                test.deepEqual(_error, error);
+                test.done();
+            });
+
+            Object.keys(promises).forEach(function(promise, i) {
+                var p = promises[promise];
+                i % 2? p.fulfill() : p.reject(error);
+            });
+        },
+
+        'resulting promise should be fulfilled if argument is empty object' : function(test) {
+            Vow.all({}).then(function(vals) {
+                test.deepEqual(vals, {});
+                test.done();
+            });
+        },
+
+        'object properties can contains non-promise items' : function(test) {
+            var promises = {a : 'a', b : Vow.promise(), c : Vow.promise(), d : 3, e : undefined};
+
+            Vow.all(promises).then(function(vals) {
+                test.deepEqual(vals, { a : 'a', b : 1, c : 2, d : 3, e : undefined});
+                test.done();
+            });
+
+            promises.b.fulfill(1);
+            promises.c.fulfill(2);
+        }
+    },
+
+    'Vow.allResolved(array)' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
             var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
 
@@ -896,6 +945,31 @@ module.exports = {
         'resulting promise should be fulfilled if argument is empty array' : function(test) {
             Vow.allResolved([]).then(function(vals) {
                 test.deepEqual(vals, []);
+                test.done();
+            });
+        }
+    },
+
+    'Vow.allResolved(object)' : {
+        'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
+            var promises = { a : Vow.promise(), b : Vow.promise(), c : Vow.promise() };
+
+            Vow.allResolved(promises).then(function(_promises) {
+                test.deepEqual(_promises, promises);
+                Object.keys(_promises).forEach(function(key, i) {
+                    test.ok(i % 2? _promises[key].isFulfilled() : _promises[key].isRejected());
+                });
+                test.done();
+            });
+
+            Object.keys(promises).forEach(function(key, i) {
+                i % 2? promises[key].fulfill() : promises[key].reject();
+            });
+        },
+
+        'resulting promise should be fulfilled if argument is empty array' : function(test) {
+            Vow.allResolved({}).then(function(vals) {
+                test.deepEqual(vals, {});
                 test.done();
             });
         }
