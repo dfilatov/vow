@@ -244,7 +244,9 @@ Returns a promise that has already been rejected with the given ````reason````. 
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returns ````promise````.
 
 ####all(promisesOrValues)####
-Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is fulfilled, or to be rejected when the first promise is rejected.
+Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is fulfilled, or to be rejected when the any promise is rejected.
+
+````promisesOrValues```` can be Array:
 ````javascript
 var promise1 = Vow.promise(),
     promise2 = Vow.promise();
@@ -257,7 +259,7 @@ Vow.all([promise1, promise2])
 promise1.fulfill(1);
 promise2.fulfill(2);
 ````
-or:
+or Object:
 ````javascript
 var promise1 = Vow.promise(),
     promise2 = Vow.promise();
