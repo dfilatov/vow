@@ -18,6 +18,8 @@ You can install using Node Package Manager (npm):
 ```
 Also RequireJS module format supported.
 
+Vow has been tested in IE6+, Mozilla Firefox 3+, Chrome 5+, Safari 5+, Opera 10+.
+
 API
 ---
   * [Creating promise](#vowpromisevalue)
