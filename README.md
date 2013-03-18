@@ -253,9 +253,9 @@ Returns a promise to be fulfilled only after all items in ````promisesOrValues``
 var promise1 = Vow.promise(),
     promise2 = Vow.promise();
     
-Vow.all([promise1, promise2])
+Vow.all([promise1, promise2, 3])
     .then(function(value) {
-        // value is [1, 2]
+        // value is [1, 2, 3]
     });
 
 promise1.fulfill(1);
@@ -266,9 +266,9 @@ or Object:
 var promise1 = Vow.promise(),
     promise2 = Vow.promise();
     
-Vow.all({ a : promise1, b : promise2 })
+Vow.all({ a : promise1, b : promise2, c : 3 })
     .then(function(value) {
-        // value is { a : 1, b : 2 }
+        // value is { a : 1, b : 2, c : 3 }
     });
 
 promise1.fulfill(1);
