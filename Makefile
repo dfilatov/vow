@@ -1,5 +1,5 @@
 test:
-	node test/runner.js
+	node test/utils/runner.js
 
 benchmark:
 	node benchmarks/comparison.js

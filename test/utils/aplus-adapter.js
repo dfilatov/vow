@@ -1,4 +1,4 @@
-var Vow = require('..');
+var Vow = require('../..');
 
 module.exports = {
     fulfilled : function(val) {
