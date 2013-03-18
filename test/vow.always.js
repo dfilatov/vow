@@ -2,8 +2,9 @@ module.exports = {
     'onResolved callback should be called when argument fulfilled' : function(test) {
         var promise = Vow.promise();
 
-        Vow.always(promise, function(val) {
-            test.strictEqual(val, 'ok');
+        Vow.always(promise, function(promise) {
+            test.ok(promise.isFulfilled());
+            test.strictEqual(promise.valueOf(), 'ok');
             test.done();
         });
 
@@ -13,8 +14,9 @@ module.exports = {
     'onResolved callback should be called when argument rejected' : function(test) {
         var promise = Vow.promise();
 
-        Vow.always(promise, function(error) {
-            test.strictEqual(error, 'err');
+        Vow.always(promise, function(promise) {
+            test.ok(promise.isRejected());
+            test.strictEqual(promise.valueOf(), 'err');
             test.done();
         });
 
@@ -22,8 +24,9 @@ module.exports = {
     },
 
     'onResolved callback should be called when argument is non-promise' : function(test) {
-        Vow.always('ok', function(val) {
-            test.strictEqual(val, 'ok');
+        Vow.always('ok', function(promise) {
+            test.ok(promise.isFulfilled());
+            test.strictEqual(promise.valueOf(), 'ok');
             test.done();
         });
     }
