@@ -50,6 +50,7 @@ API
     * [fulfill](#fulfillvalue-1)
     * [reject](#rejectreason-1)
     * [resolve](#resolvevalue)
+    * [invoke](#invokefn-args)
     * [all](#allpromisesorvalues)
     * [allResolved](#allresolvedpromisesorvalues)
     * [any](#anypromisesorvalues)
@@ -244,6 +245,12 @@ Returns a promise that has already been rejected with the given ````reason````. 
 
 ####resolve(value)####
 Returns a promise that has already been fulfilled with the given ````value````. If ````value```` is a promise, returns ````promise````.
+
+####invoke(fn, ...args)####
+Invokes a given function ````fn```` with arguments ````args````. Returned promise:
+  * will be fulfilled with returned value if value is not a promise
+  * will be returned value if value is a promise
+  * will be rejected if function throw exception
 
 ####all(promisesOrValues)####
 Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is fulfilled, or to be rejected when the any promise is rejected.
