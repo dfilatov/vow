@@ -1,62 +1,6 @@
 var Vow = require('..');
 
 module.exports = {
-    'Vow.when' : {
-        'onFullfilled callback should be called when argument fulfilled' : function(test) {
-            var promise = Vow.promise();
-
-            Vow.when(promise, function(val) {
-                test.strictEqual(val, 'val');
-                test.done();
-            });
-
-            promise.fulfill('val');
-        },
-
-        'onRejected callback should be called when argument rejected' : function(test) {
-            var promise = Vow.promise();
-
-            Vow.when(promise, null, function(error) {
-                test.strictEqual(error, 'err');
-                test.done();
-            });
-
-            promise.reject('err');
-        },
-
-        'onFulfilled callback should be called if argument is non-promise' : function(test) {
-            Vow.when('val', function(val) {
-                test.strictEqual(val, 'val');
-                test.done();
-            });
-        }
-    },
-
-    'Vow.fail' : {
-        'onRejected callback should be called when argument rejected' : function(test) {
-            var promise = Vow.promise();
-
-            Vow.fail(promise, function(error) {
-                test.strictEqual(error, 'err');
-                test.done();
-            });
-
-            promise.reject('err');
-        }
-    },
-
-    'Vow.spread' : {
-        'onFulfilled argument should be spreaded' : function(test) {
-            Vow.spread([1, '2', true], function(arg1, arg2, arg3) {
-                test.strictEqual(arguments.length, 3);
-                test.strictEqual(arg1, 1);
-                test.strictEqual(arg2, '2');
-                test.strictEqual(arg3, true);
-                test.done();
-            });
-        }
-    },
-
     'Vow.done' : {
         'exception should be throwed if argument is a promise' : function(test) {
             var promise = Vow.promise(),
