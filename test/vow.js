@@ -212,15 +212,5 @@ module.exports = {
                 test.done();
             });
         }
-    },
-
-    'Vow.timeout' : {
-        'resulting promise should not be rejected if arguments is not a promise' : function(test) {
-            var resPromise = Vow.timeout('a', 10);
-            setTimeout(function() {
-                test.ok(!resPromise.isRejected());
-                test.done();
-            }, 20);
-        }
     }
 };
