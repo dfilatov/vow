@@ -35,6 +35,7 @@ API
     * [always](#alwaysonresolved)
     * [spread](#spreadonfulfilled-onrejected)
     * [done](#done)
+    * [delay](#delaydelay)
     * [timeout](#timeouttimeout)
     * [sync](#syncwithpromise)
   * [Vow API](#vow-api)
@@ -54,7 +55,8 @@ API
     * [all](#allpromisesorvalues)
     * [allResolved](#allresolvedpromisesorvalues)
     * [any](#anypromisesorvalues)
-    * [timeout](#timeoutpromise-timeout)
+    * [delay](#delayvalue-delay)
+    * [timeout](#timeoutvalue-timeout)
 
 ####Vow.promise([value])####
 Create a new promise if no ````value```` given, or create a new fulfilled promise if the ````value```` is not a promise, or returns ````value```` if the given ````value```` is a promise.
@@ -164,9 +166,11 @@ var promise = Vow.promise();
 promise.reject(Error('Internal error'));
 promise.done(); // exception to be throwed
 ````
+####delay(delay)####
+Returns a new promise that to be fulfilled after a ````delay```` milliseconds if promise is fulfilled, or immediately rejected if promise is rejected.
 
 ####timeout(timeout)####
-Returns a new promise that to be rejected after a ````timeout```` if promise does not resolved beforehand.
+Returns a new promise that to be rejected after a ````timeout```` milliseconds if promise does not resolved beforehand.
 ````javascript
 var promise = Vow.promise(),
     promiseWithTimeout1 = promise.timeout(50),
@@ -301,5 +305,8 @@ promise2.fulfill('ok');
 ####any(promisesOrValues)####
 Returns a promise to be fulfilled only any item in ````promisesOrValues```` is fulfilled, or to be rejected when all items is rejected (with reason of first rejected item).
 
-####timeout(promise, timeout)####
+####delay(value, delay)####
+Static equivalent for [promise.delay](#delaydelay). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+
+####timeout(value, timeout)####
 Static equivalent for [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
