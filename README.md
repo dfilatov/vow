@@ -255,6 +255,20 @@ Invokes a given function ````fn```` with arguments ````args````. Returned promis
   * will be fulfilled with returned value if value is not a promise
   * will be returned value if value is a promise
   * will be rejected if function throw exception
+ 
+````javascript
+var promise1 = Vow.invoke(function(value) {
+        return value;
+    }, 'ok'),
+    promise2 = Vow.invoke(function() {
+        throw Error();
+    });
+
+promise1.isFulfilled(); // true
+promise1.valueOf(); // 'ok'
+promise2.isRejected(); // true
+promise2.valueOf(); // instance of Error
+````
 
 ####all(promisesOrValues)####
 Returns a promise to be fulfilled only after all items in ````promisesOrValues```` is fulfilled, or to be rejected when the any promise is rejected.
