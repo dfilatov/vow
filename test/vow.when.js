@@ -1,5 +1,5 @@
 module.exports = {
-    'onFullfilled callback should be called when argument fulfilled' : function(test) {
+    'onFulfilled callback should be called when argument fulfilled' : function(test) {
         var promise = Vow.promise();
 
         Vow.when(promise, function(val) {
@@ -26,5 +26,16 @@ module.exports = {
             test.strictEqual(val, 'val');
             test.done();
         });
+    },
+
+    'onProgress callback should be called when argument notified' : function(test) {
+        var promise = Vow.promise();
+
+        Vow.when(promise, null, null, function(val) {
+            test.strictEqual(val, 'val');
+            test.done();
+        });
+
+        promise.notify('val');
     }
 };

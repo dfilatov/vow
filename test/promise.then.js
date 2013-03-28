@@ -12,7 +12,7 @@ module.exports = {
 
     'resulting promise should be rejected with same reason' : function(test) {
         var promise = Vow.promise(),
-            error = new Error('errot');
+            error = new Error('error');
 
         promise.then().then(null, function(_error) {
             test.strictEqual(_error, error);
@@ -20,6 +20,17 @@ module.exports = {
         });
 
         promise.reject(error);
+    },
+
+    'resulting promise should be notified with same value' : function(test) {
+        var promise = Vow.promise();
+
+        promise.then().then(null, null, function(val) {
+            test.strictEqual(val, 1);
+            test.done();
+        });
+
+        promise.notify(1);
     },
 
     'resulting promise should be fulfilled with returned value of onFulfilled callback' : function(test) {
@@ -101,5 +112,20 @@ module.exports = {
         });
 
         promise.reject();
+    },
+
+    'resulting promise should be notified with returned value of onProgress callback' : function(test) {
+        var promise = Vow.promise();
+
+        promise
+            .then(null, null, function(val) {
+                return val + 1;
+            })
+            .then(null, null, function(val) {
+                test.strictEqual(val, 2);
+                test.done();
+            });
+
+        promise.notify(1);
     }
 };
