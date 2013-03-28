@@ -26,13 +26,15 @@ API
   * [Promise API](#promise-api)
     * [fulfill](#fulfillvalue)
     * [reject](#rejectreason)
+    * [notify](#notifyvalue)
     * [isFulfilled](#isfulfilled)
     * [isRejected](#isrejected)
     * [isResolved](#isresolved)
     * [valueOf](#valueof)
-    * [then](#thenonfulfilled-onrejected)
+    * [then](#thenonfulfilled-onrejected-onprogress)
     * [fail](#failonrejected)
     * [always](#alwaysonresolved)
+    * [progress](#progressonprogress)
     * [spread](#spreadonfulfilled-onrejected)
     * [done](#done)
     * [delay](#delaydelay)
@@ -40,7 +42,7 @@ API
     * [sync](#syncwithpromise)
   * [Vow API](#vow-api)
     * [isPromise](#ispromisevalue)
-    * [when](#whenvalue-onfulfilled-onrejected) 
+    * [when](#whenvalue-onfulfilled-onrejected-onprogress) 
     * [fail](#failvalue-onrejected)
     * [always](#alwaysvalue-onresolved)
     * [spread](#spreadvalue-onfulfilled-onrejected) 
@@ -78,6 +80,9 @@ Reject promise with given ````reason````
 var promise = Vow.promise();
 promise.reject(Error('internal error')); // reject promise with Error object
 ````
+####notify(value)####
+Notify promise for progress with given ````value````
+
 ####isFulfilled()####
 Returns whether the promise is fulfilled
 ````javascript
@@ -111,10 +116,11 @@ Returns value of the promise:
   * reason of rejection, if promise is rejected 
   * undefined, if promise is not resolved
 
-####then([onFulfilled], [onRejected])####
+####then([onFulfilled], [onRejected], [onProgress])####
 Arranges for:
   * ````onFulfilled```` to be called with the value after promise is fulfilled,
   * ````onRejected```` to be called with the rejection reason after promise is rejected.
+  * ````onProgress```` to be called with the value when promise is notified for progress.
  
 Returns a new promise. See [Promises/A+ specification](https://github.com/promises-aplus/promises-spec) for details.
 ````javascript
@@ -143,6 +149,8 @@ promise.always(
     });
 promise.fulfill('ok'); // or promise.reject(Error('error'));
 ````
+
+####progress(onProgress)####
 
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
@@ -212,8 +220,8 @@ Vow.isPromise('value'); // returns false
 Vow.isPromise(Vow.promise()); // returns true
 ````
 
-####when(value, [onFulfilled], [onRejected])####
-Static equivalent for [promise.then](#thenonfulfilled-onrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+####when(value, [onFulfilled], [onRejected], [onProgress])####
+Static equivalent for [promise.then](#thenonfulfilled-onrejected-onprogress). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####fail(value, onRejected)####
 Static equivalent for [promise.fail](#failonrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
