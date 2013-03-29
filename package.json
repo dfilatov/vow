@@ -3,7 +3,7 @@
     "version" : "0.3.0",
     "description" : "Promises/A+ proposal compatible promises library",
     "homepage" : "https://github.com/dfilatov/jspromise",
-    "keywords" : ["promise", "a+"],
+    "keywords" : ["nodejs", "browser", "async", "promise", "a+"],
     "author" : "Dmitry Filatov <dfilatov@yandex-team.ru>",
     "contributors" : [{
         "name"  : "Dmitry Filatov",
