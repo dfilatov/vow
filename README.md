@@ -151,6 +151,7 @@ promise.fulfill('ok'); // or promise.reject(Error('error'));
 ````
 
 ####progress(onProgress)####
+Shortcut for ````then(null, null, onProgress)````.
 
 ####spread([onFulfilled], [onRejected])####
 Like "then", but "spreads" the array into a variadic value handler.
