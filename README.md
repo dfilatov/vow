@@ -128,7 +128,8 @@ Returns a new promise. See [Promises/A+ specification](https://github.com/promis
 var promise = Vow.promise();
 promise.then(
     function() { }, // to be called after promise is fulfilled
-    function() { }); // to be called after promise is rejected
+    function() { }, // to be called after promise is rejected
+    function() { } // to be called when promise is notified);
 ````
 
 ####fail(onRejected)####
