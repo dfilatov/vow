@@ -113,7 +113,7 @@ module.exports = {
 
         process.nextTick(function() {
             process.nextTick(function() {
-                resOrder.push(4);
+                resOrder.push(6);
                 process.nextTick(function() {
                     resOrder.push(7);
                 });
@@ -123,11 +123,11 @@ module.exports = {
             });
 
             promise.then(function() {
-                resOrder.push(5);
+                resOrder.push(4);
             });
 
             promise.then(function() {
-                resOrder.push(6);
+                resOrder.push(5);
             });
 
             resOrder.push(2);
