@@ -127,5 +127,41 @@ module.exports = {
             });
 
         promise.notify(1);
+    },
+
+    'onFulfilled callback should be called in given context' : function(test) {
+        var promise = Vow.promise(),
+            ctx = {};
+
+        promise.then(function() {
+            test.strictEqual(ctx, this);
+            test.done();
+        }, ctx);
+
+        promise.fulfill();
+    },
+
+    'onRejected callback should be called in given context' : function(test) {
+        var promise = Vow.promise(),
+            ctx = {};
+
+        promise.then(null, function() {
+            test.strictEqual(ctx, this);
+            test.done();
+        }, ctx);
+
+        promise.reject();
+    },
+
+    'onProgress callback should be called in given context' : function(test) {
+        var promise = Vow.promise(),
+            ctx = {};
+
+        promise.then(null, null, function() {
+            test.strictEqual(ctx, this);
+            test.done();
+        }, ctx);
+
+        promise.notify();
     }
 };
