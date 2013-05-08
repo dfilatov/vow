@@ -31,11 +31,11 @@ API
     * [isRejected](#isrejected)
     * [isResolved](#isresolved)
     * [valueOf](#valueof)
-    * [then](#thenonfulfilled-onrejected-onprogress)
-    * [fail](#failonrejected)
-    * [always](#alwaysonresolved)
-    * [progress](#progressonprogress)
-    * [spread](#spreadonfulfilled-onrejected)
+    * [then](#thenonfulfilled-onrejected-onprogress-context)
+    * [fail](#failonrejected-context)
+    * [always](#alwaysonresolved-context)
+    * [progress](#progressonprogress-context)
+    * [spread](#spreadonfulfilled-onrejected-context)
     * [done](#done)
     * [delay](#delaydelay)
     * [timeout](#timeouttimeout)
@@ -117,11 +117,12 @@ Returns value of the promise:
   * reason of rejection, if promise is rejected 
   * undefined, if promise is not resolved
 
-####then([onFulfilled], [onRejected], [onProgress])####
+####then([onFulfilled], [onRejected], [onProgress], [context])####
 Arranges for:
   * ````onFulfilled```` to be called with the value after promise is fulfilled,
   * ````onRejected```` to be called with the rejection reason after promise is rejected.
   * ````onProgress```` to be called with the value when promise is notified for progress.
+  * ````context```` context of callbacks
  
 Returns a new promise. See [Promises/A+ specification](https://github.com/promises-aplus/promises-spec) for details.
 ````javascript
@@ -129,11 +130,12 @@ var promise = Vow.promise();
 promise.then(
     function() { }, // to be called after promise is fulfilled
     function() { }, // to be called after promise is rejected
-    function() { } // to be called when promise is notified);
+    function() { } // to be called when promise is notified
+    );
 ````
 
-####fail(onRejected)####
-Arranges to call ````onRejected```` on the promise's rejection reason if it is rejected. Shortcut for ````then(null, onRejected)````.
+####fail(onRejected, [context])####
+Arranges to call ````onRejected```` with given ````context```` on the promise's rejection reason if it is rejected. Shortcut for ````then(null, onRejected)````.
 ````javascript
 var promise = Vow.promise();
 promise.fail(
@@ -142,8 +144,8 @@ promise.fail(
 promise.reject(Error('error'));
 ````
 
-####always(onResolved)####
-Arranges to call ````onResolved```` on the promise if it is fulfilled or rejected.
+####always(onResolved, [context])####
+Arranges to call ````onResolved```` with given ````context```` on the promise if it is fulfilled or rejected.
 ````javascript
 var promise = Vow.promise();
 promise.always(
@@ -152,10 +154,11 @@ promise.always(
 promise.fulfill('ok'); // or promise.reject(Error('error'));
 ````
 
-####progress(onProgress)####
+####progress(onProgress, [context])####
+Arranges to call ````onProgress```` with given ````context```` on the promise if it is notified.
 Shortcut for ````then(null, null, onProgress)````.
 
-####spread([onFulfilled], [onRejected])####
+####spread([onFulfilled], [onRejected], [context])####
 Like "then", but "spreads" the array into a variadic value handler.
 It useful with [Vow.all](#allpromises), [Vow.allResolved](#allresolvedpromises) methods.
 ````javascript
