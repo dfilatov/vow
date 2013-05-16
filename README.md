@@ -42,11 +42,11 @@ API
     * [sync](#syncwithpromise)
   * [Vow API](#vow-api)
     * [isPromise](#ispromisevalue)
-    * [when](#whenvalue-onfulfilled-onrejected-onprogress) 
-    * [fail](#failvalue-onrejected)
-    * [always](#alwaysvalue-onresolved)
-    * [progress](#progressvalue-onprogress)
-    * [spread](#spreadvalue-onfulfilled-onrejected) 
+    * [when](#whenvalue-onfulfilled-onrejected-onprogress-context) 
+    * [fail](#failvalue-onrejected-context)
+    * [always](#alwaysvalue-onresolved-context)
+    * [progress](#progressvalue-onprogress-context)
+    * [spread](#spreadvalue-onfulfilled-onrejected-context) 
     * [done](#donevalue)
     * [isFulfilled](#isfulfilledvalue)
     * [isRejected](#isrejectedvalue)
@@ -226,20 +226,20 @@ Vow.isPromise('value'); // returns false
 Vow.isPromise(Vow.promise()); // returns true
 ````
 
-####when(value, [onFulfilled], [onRejected], [onProgress])####
-Static equivalent for [promise.then](#thenonfulfilled-onrejected-onprogress). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+####when(value, [onFulfilled], [onRejected], [onProgress], [context])####
+Static equivalent for [promise.then](#thenonfulfilled-onrejected-onprogress-context). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
-####fail(value, onRejected)####
-Static equivalent for [promise.fail](#failonrejected). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+####fail(value, onRejected, [context])####
+Static equivalent for [promise.fail](#failonrejected-context). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
-####always(value, onResolved)####
-Static equivalent for [promise.always](#alwaysonresolved). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+####always(value, onResolved, [context])####
+Static equivalent for [promise.always](#alwaysonresolved-context). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
-####progress(value, onProgress)####
-Static equivalent for [promise.progress](#progressonprogress). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
+####progress(value, onProgress, [context])####
+Static equivalent for [promise.progress](#progressonprogress-context). If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
-####spread(value, [onFulfilled], [onRejected])####
-Static equivalent for [promise.spread](#spreadonfulfilled-onrejected).
+####spread(value, [onFulfilled], [onRejected], [context])####
+Static equivalent for [promise.spread](#spreadonfulfilled-onrejected-context).
 If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
 ####done(value)####
