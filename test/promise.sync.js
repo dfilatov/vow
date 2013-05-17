@@ -13,7 +13,7 @@ module.exports = {
         syncedWithPromise.fulfill('val');
     },
 
-    'promise should be rejected when synced promise fulfilled' : function(test) {
+    'promise should be rejected when synced promise rejected' : function(test) {
         var promise = Vow.promise(),
             syncedWithPromise = Vow.promise();
 
@@ -25,5 +25,19 @@ module.exports = {
         });
 
         syncedWithPromise.reject('err');
+    },
+
+    'promise should be notified when synced promise notified' : function(test) {
+        var promise = Vow.promise(),
+            syncedWithPromise = Vow.promise();
+
+        promise.sync(syncedWithPromise);
+
+        promise.progress(function(val) {
+            test.strictEqual(val, 'val');
+            test.done();
+        });
+
+        syncedWithPromise.notify('val');
     }
 };
