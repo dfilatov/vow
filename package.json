@@ -1,6 +1,6 @@
 {
     "name" : "vow",
-    "version" : "0.3.4",
+    "version" : "0.3.5",
     "description" : "Promises/A+ proposal compatible promises library",
     "homepage" : "https://github.com/dfilatov/jspromise",
     "keywords" : ["nodejs", "browser", "async", "promise", "a+"],
