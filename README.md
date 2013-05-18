@@ -36,7 +36,7 @@ API
     * [always](#alwaysonresolved-context)
     * [progress](#progressonprogress-context)
     * [spread](#spreadonfulfilled-onrejected-context)
-    * [done](#done)
+    * [done](#doneonfulfilled-onrejected-onprogress-context)
     * [delay](#delaydelay)
     * [timeout](#timeouttimeout)
     * [sync](#syncwithpromise)
@@ -47,7 +47,7 @@ API
     * [always](#alwaysvalue-onresolved-context)
     * [progress](#progressvalue-onprogress-context)
     * [spread](#spreadvalue-onfulfilled-onrejected-context) 
-    * [done](#donevalue)
+    * [done](#donevalue-onfulfilled-onrejected-onprogress-context)
     * [isFulfilled](#isfulfilledvalue)
     * [isRejected](#isrejectedvalue)
     * [isResolved](#isresolvededvalue)
@@ -173,7 +173,7 @@ promise1.fulfill(1);
 promise2.fulfill('two');
 ````
 
-####done()####
+####done([onFulfilled], [onRejected], [onProgress], [context])####
 Terminate a chain of promises. If the promise is rejected, throws it as an exception in a future turn of the event loop.
 ````javascript
 var promise = Vow.promise();
@@ -242,8 +242,8 @@ Static equivalent for [promise.progress](#progressonprogress-context). If given 
 Static equivalent for [promise.spread](#spreadonfulfilled-onrejected-context).
 If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise.
 
-####done(value)####
-Static equivalent for [promise.done](#done).
+####done(value, [onFulfilled], [onRejected], [onProgress], [context]])####
+Static equivalent for [promise.done](#doneonfulfilled-onrejected-onprogress-context).
 If given ````value```` is not a promise, ````value```` is equivalent to fulfilled promise. 
 
 ####isFulfilled(value)####
