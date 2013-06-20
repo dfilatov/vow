@@ -16,7 +16,7 @@ You can install using Node Package Manager (npm):
 ```html
 <script type="text/javascript" src="vow.min.js"></script>
 ```
-Also RequireJS module format supported.
+Also RequireJS module format and [YM module](https://github.com/ymaps/modules) format supported.
 
 Vow has been tested in IE6+, Mozilla Firefox 3+, Chrome 5+, Safari 5+, Opera 10+.
 
