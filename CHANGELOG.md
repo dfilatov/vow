@@ -39,4 +39,4 @@ Changelog
   
 0.3.0
 -----
-  * Add support for `progress/notify' [#23](https://github.com/dfilatov/jspromise/issues/23)
+  * Add support for `progress/notify` [#23](https://github.com/dfilatov/jspromise/issues/23)
