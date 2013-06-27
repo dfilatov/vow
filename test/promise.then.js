@@ -114,6 +114,44 @@ module.exports = {
         promise.reject();
     },
 
+    'resulting promise should be notified with same value as returned promise of onFulfilled callback' : function(test) {
+        var promise = Vow.promise(),
+            retPromise = Vow.promise(),
+            resPromise = promise.then(function() {
+                return retPromise;
+            });
+
+        promise.then(function() {
+            retPromise.notify('ok');
+        });
+
+        resPromise.then(null, null, function(val) {
+            test.strictEqual(val, 'ok');
+            test.done();
+        });
+
+        promise.fulfill();
+    },
+
+    'resulting promise should be notified with same value as returned promise of onRejected callback' : function(test) {
+        var promise = Vow.promise(),
+            retPromise = Vow.promise(),
+            resPromise = promise.then(null, function() {
+                return retPromise;
+            });
+
+        promise.then(null, function() {
+            retPromise.notify('ok');
+        });
+
+        resPromise.then(null, null, function(val) {
+            test.strictEqual(val, 'ok');
+            test.done();
+        });
+
+        promise.reject();
+    },
+
     'resulting promise should be notified with returned value of onProgress callback' : function(test) {
         var promise = Vow.promise();
 
