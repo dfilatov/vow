@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.9
+-----
+  * Fix for propagation of progress state [#37](https://github.com/dfilatov/jspromise/issues/37)
+
 0.3.8
 -----
   * Fix for ignoring callback's context in always method [#35](https://github.com/dfilatov/jspromise/issues/35)
