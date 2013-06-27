@@ -44,3 +44,7 @@ Changelog
 0.3.0
 -----
   * Add support for `progress/notify` [#23](https://github.com/dfilatov/jspromise/issues/23)
+
+0.2.6
+-----
+  * `promise.always` doesn't pass the return value of `onResolved` [#19](https://github.com/dfilatov/jspromise/issues/19)
