@@ -21,12 +21,12 @@ Changelog
 
 0.3.5
 -----
-  * Fix for synchronize `onProgress` callback in `sync` method [#30](https://github.com/dfilatov/jspromise/issues/30)
+  * Fix for synchronize `onProgress` callback in `promise.sync` method [#30](https://github.com/dfilatov/jspromise/issues/30)
 
 0.3.4
 -----
   * Add ability to use multiple modules system simultaneously [#26](https://github.com/dfilatov/jspromise/issues/26)
-  * Add callbacks to promise.done method [#29](https://github.com/dfilatov/jspromise/issues/29)
+  * Add callbacks to `promise.done` method [#29](https://github.com/dfilatov/jspromise/issues/29)
   
 0.3.3
 -----
