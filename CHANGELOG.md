@@ -17,7 +17,7 @@ Changelog
 
 0.3.5
 -----
-  * Fix for synchronize onProgress callback in promise.sync method [#30](https://github.com/dfilatov/jspromise/issues/30)
+  * Fix for synchronize `onProgress` callback in `sync` method [#30](https://github.com/dfilatov/jspromise/issues/30)
 
 0.3.4
 -----
