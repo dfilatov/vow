@@ -1,9 +1,12 @@
 module.exports = {
     'exception should be throwed if argument is a promise' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             e = Error();
 
-        promise.reject(e);
+        resolver.reject(e);
         Vow.done(promise);
 
         process.once('uncaughtException', function(_e) {

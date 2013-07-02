@@ -60,27 +60,33 @@ var cliff = require('cliff'),
 
         'Vow' : function(deferred) {
             var toResolve = [],
-                topPromises = [];
+                topResolvers = [];
 
             Object.keys(data).forEach(function(key) {
-                var promise = Vow.promise();
+                var resolver,
+                    promise = Vow.promise(function(_resolver) {
+                        resolver = _resolver;
+                    });
                 Vow.all(data[key].map(function(val) {
-                        var promise = Vow.promise();
-                        toResolve.push({ promise : promise, val : val });
+                    var resolver,
+                        promise = Vow.promise(function(_resolver) {
+                            resolver = _resolver;
+                        });
+                        toResolve.push({ resolver : resolver, val : val });
                         return promise;
                     }))
                     .then(function(val) {
-                        promise.fulfill(val);
+                        resolver.fulfill(val);
                     });
-                topPromises.push(promise);
+                topResolvers.push(resolver);
             });
 
-            Vow.all(topPromises).then(function() {
+            Vow.all(topResolvers).then(function() {
                 deferred.resolve();
             });
 
             toResolve.forEach(function(obj) {
-                obj.promise.fulfill(obj.val);
+                obj.resolver.fulfill(obj.val);
             });
         }
     },

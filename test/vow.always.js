@@ -1,6 +1,9 @@
 module.exports = {
     'onResolved callback should be called when argument fulfilled' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         Vow.always(promise, function(promise) {
             test.ok(promise.isFulfilled());
@@ -8,11 +11,14 @@ module.exports = {
             test.done();
         });
 
-        promise.fulfill('ok');
+        resolver.fulfill('ok');
     },
 
     'onResolved callback should be called when argument rejected' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         Vow.always(promise, function(promise) {
             test.ok(promise.isRejected());
@@ -20,7 +26,7 @@ module.exports = {
             test.done();
         });
 
-        promise.reject('err');
+        resolver.reject('err');
     },
 
     'onResolved callback should be called when argument is non-promise' : function(test) {

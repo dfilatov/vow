@@ -1,10 +1,13 @@
 module.exports = {
     'exception should be throwed' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             e = Error();
 
         promise.done();
-        promise.reject(e);
+        resolver.reject(e);
 
         process.once('uncaughtException', function(_e) {
             test.strictEqual(_e, e);

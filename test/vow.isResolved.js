@@ -6,8 +6,11 @@ module.exports = {
         var fulfilledPromise = Vow.promise('val');
         test.ok(Vow.isResolved(fulfilledPromise) === fulfilledPromise.isResolved());
 
-        var rejectedPromise = Vow.promise();
-        rejectedPromise.reject('error');
+        var resolver,
+            rejectedPromise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
+        resolver.reject('error');
         test.ok(Vow.isResolved(rejectedPromise) === rejectedPromise.isResolved());
 
         test.done();

@@ -2,28 +2,34 @@ var Vow = require('../..');
 
 module.exports = {
     resolved : function(val) {
-        var promise = Vow.promise();
-        promise.resolve(val);
+        var resolver = Vow.resolver(),
+            promise = Vow.promise(resolver);
+
+        resolver.resolve(val);
         return promise;
     },
 
     rejected : function(reason) {
-        var promise = Vow.promise();
-        promise.reject(reason);
+        var resolver = Vow.resolver(),
+            promise = Vow.promise(resolver);
+
+        resolver.reject(reason);
         return promise;  
     },
 
     deferred : function() {
-        var promise = Vow.promise();
+        var resolver = Vow.resolver(),
+            promise = Vow.promise(resolver);
+
         return {
             promise : promise,
             
             resolve : function(val) {
-                promise.resolve(val);
+                resolver.resolve(val);
             },
 
             reject : function(reason) {
-                promise.reject(reason);
+                resolver.reject(reason);
             }
         };
     }

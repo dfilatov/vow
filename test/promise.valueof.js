@@ -7,18 +7,25 @@ module.exports = {
     },
 
     'should return value of fulfillment if promise if fulfilled' : function(test) {
-        var promise = Vow.promise();
-        promise.fulfill('ok');
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
+
+        resolver.fulfill('ok');
 
         test.strictEqual(promise.valueOf(), 'ok');
         test.done();
     },
 
     'should return reason of rejection if promise if rejected' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             error = Error();
 
-        promise.reject(error);
+        resolver.reject(error);
 
         test.strictEqual(promise.valueOf(), error);
         test.done();

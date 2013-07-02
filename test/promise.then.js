@@ -1,17 +1,23 @@
 module.exports = {
     'resulting promise should be fulfilled with same value' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         promise.then().then(function(val) {
             test.strictEqual(val, 'val');
             test.done();
         });
 
-        promise.fulfill('val');
+        resolver.fulfill('val');
     },
 
     'resulting promise should be rejected with same reason' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             error = new Error('error');
 
         promise.then().then(null, function(_error) {
@@ -19,27 +25,33 @@ module.exports = {
             test.done();
         });
 
-        promise.reject(error);
+        resolver.reject(error);
     },
 
     'resulting promise should be notified with same value' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         promise.then().then(null, null, function(val) {
             test.strictEqual(val, 1);
             test.done();
         });
 
-        promise.notify(1);
+        resolver.notify(1);
     },
 
     'resulting promise should be fulfilled with returned value of onFulfilled callback' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             resPromise = promise.then(function() {
                 return 'val';
             });
 
-        promise.fulfill();
+        resolver.fulfill();
 
         resPromise.then(function(val) {
             test.strictEqual(val, 'val');
@@ -48,14 +60,20 @@ module.exports = {
     },
 
     'resulting promise should be fulfilled with same value as returned promise of onFulfilled callback' : function(test) {
-        var promise = Vow.promise(),
-            retPromise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
+            retResolver,
+            retPromise = Vow.promise(function(_resolver) {
+                retResolver = _resolver;
+            }),
             resPromise = promise.then(function() {
                 return retPromise;
             });
 
         promise.then(function() {
-            retPromise.fulfill('ok');
+            retResolver.fulfill('ok');
         });
 
         resPromise.then(function(val) {
@@ -63,19 +81,25 @@ module.exports = {
             test.done();
         });
 
-        promise.fulfill();
+        resolver.fulfill();
     },
 
     'resulting promise should be rejected with same value as returned promise of onRejected callback' : function(test) {
-        var promise = Vow.promise(),
-            retPromise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
+            retResolver,
+            retPromise = Vow.promise(function(_resolver) {
+                retResolver = _resolver;
+            }),
             resPromise = promise.then(function() {
                 return retPromise;
             }),
             error = new Error('error');
 
         promise.then(function() {
-            retPromise.reject(error);
+            retResolver.reject(error);
         });
 
         resPromise.then(null, function(_error) {
@@ -83,11 +107,14 @@ module.exports = {
             test.done();
         });
 
-        promise.fulfill();
+        resolver.fulfill();
     },
 
     'resulting promise should be rejected if onFulfilled callback throw exception' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             resPromise = promise.then(function() {
                 throw { message : 'error' };
             });
@@ -97,11 +124,14 @@ module.exports = {
             test.done();
         });
 
-        promise.fulfill();
+        resolver.fulfill();
     },
 
     'resulting promise should be rejected if onRejected callback throw exception' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             resPromise = promise.then(null, function() {
                 throw { message : 'error' };
             });
@@ -111,18 +141,24 @@ module.exports = {
             test.done();
         });
 
-        promise.reject();
+        resolver.reject();
     },
 
     'resulting promise should be notified with same value as returned promise of onFulfilled callback' : function(test) {
-        var promise = Vow.promise(),
-            retPromise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
+            retResolver,
+            retPromise = Vow.promise(function(_resolver) {
+                retResolver = _resolver;
+            }),
             resPromise = promise.then(function() {
                 return retPromise;
             });
 
         promise.then(function() {
-            retPromise.notify('ok');
+            retResolver.notify('ok');
         });
 
         resPromise.then(null, null, function(val) {
@@ -130,18 +166,24 @@ module.exports = {
             test.done();
         });
 
-        promise.fulfill();
+        resolver.fulfill();
     },
 
     'resulting promise should be notified with same value as returned promise of onRejected callback' : function(test) {
-        var promise = Vow.promise(),
-            retPromise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
+            retResolver,
+            retPromise = Vow.promise(function(_resolver) {
+                retResolver = _resolver;
+            }),
             resPromise = promise.then(null, function() {
                 return retPromise;
             });
 
         promise.then(null, function() {
-            retPromise.notify('ok');
+            retResolver.notify('ok');
         });
 
         resPromise.then(null, null, function(val) {
@@ -149,11 +191,14 @@ module.exports = {
             test.done();
         });
 
-        promise.reject();
+        resolver.reject();
     },
 
     'resulting promise should be notified with returned value of onProgress callback' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         promise
             .then(null, null, function(val) {
@@ -164,11 +209,14 @@ module.exports = {
                 test.done();
             });
 
-        promise.notify(1);
+        resolver.notify(1);
     },
 
     'onFulfilled callback should be called in given context' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             ctx = {};
 
         promise.then(function() {
@@ -176,11 +224,14 @@ module.exports = {
             test.done();
         }, ctx);
 
-        promise.fulfill();
+        resolver.fulfill();
     },
 
     'onRejected callback should be called in given context' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             ctx = {};
 
         promise.then(null, function() {
@@ -188,11 +239,14 @@ module.exports = {
             test.done();
         }, ctx);
 
-        promise.reject();
+        resolver.reject();
     },
 
     'onProgress callback should be called in given context' : function(test) {
-        var promise = Vow.promise(),
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            }),
             ctx = {};
 
         promise.then(null, null, function() {
@@ -200,6 +254,6 @@ module.exports = {
             test.done();
         }, ctx);
 
-        promise.notify();
+        resolver.notify();
     }
 };

@@ -1,20 +1,42 @@
 module.exports = {
     'for Array' : {
         'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
-            var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
+            var resolvers = [],
+                promises = [
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    })
+                ];
 
             Vow.all(promises).then(function(vals) {
                 test.deepEqual(vals, [0, 1, 2]);
                 test.done();
             });
 
-            promises.forEach(function(promise, i) {
-                promise.fulfill(i);
+            resolvers.forEach(function(resolver, i) {
+                resolver.fulfill(i);
             });
         },
 
         'resulting promise should be rejected if any promise rejected' : function(test) {
-            var promises = [Vow.promise(), Vow.promise(), Vow.promise()],
+            var resolvers = [],
+                promises = [
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    })
+                ],
                 error = new Error('error');
 
             Vow.all(promises).then(null, function(_error) {
@@ -22,8 +44,8 @@ module.exports = {
                 test.done();
             });
 
-            promises.forEach(function(promise, i) {
-                i % 2? promise.fulfill() : promise.reject(error);
+            resolvers.forEach(function(resolver, i) {
+                i % 2? resolver.fulfill() : resolver.reject(error);
             });
         },
 
@@ -35,34 +57,67 @@ module.exports = {
         },
 
         'arguments can contains non-promise items' : function(test) {
-            var promises = [0, Vow.promise(), Vow.promise(), 3, undefined];
+            var resolvers = [],
+                promises = [
+                    0,
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    3,
+                    undefined
+                ];
 
             Vow.all(promises).then(function(vals) {
                 test.deepEqual(vals, [0, 1, 2, 3, undefined]);
                 test.done();
             });
 
-            promises[1].fulfill(1);
-            promises[2].fulfill(2);
+            resolvers[0].fulfill(1);
+            resolvers[1].fulfill(2);
         }
     },
 
     'for Object' : {
         'resulting promise should be fulfilled after all promises fulfilled' : function(test) {
-            var promises = { a : Vow.promise(), b : Vow.promise(), c :Vow.promise() };
+            var resolvers = {},
+                promises = {
+                    a : Vow.promise(function(resolver) {
+                        resolvers.a = resolver;
+                    }),
+                    b : Vow.promise(function(resolver) {
+                        resolvers.b = resolver;
+                    }),
+                    c : Vow.promise(function(resolver) {
+                        resolvers.c = resolver;
+                    })
+                };
 
             Vow.all(promises).then(function(vals) {
-                test.deepEqual(vals, {a : 'a', b :'b', c :'c'});
+                test.deepEqual(vals, { a : 'a', b :'b', c :'c' });
                 test.done();
             });
 
-            Object.keys(promises).forEach(function(promise) {
-                promises[promise].fulfill(promise);
+            Object.keys(resolvers).forEach(function(key) {
+                resolvers[key].fulfill(key);
             });
         },
 
         'resulting promise should be rejected if any promise rejected' : function(test) {
-            var promises = { a : Vow.promise(), b : Vow.promise(), c :Vow.promise() },
+            var resolvers = {},
+                promises = {
+                    a : Vow.promise(function(resolver) {
+                        resolvers.a = resolver;
+                    }),
+                    b : Vow.promise(function(resolver) {
+                        resolvers.b = resolver;
+                    }),
+                    c : Vow.promise(function(resolver) {
+                        resolvers.c = resolver;
+                    })
+                },
                 error = new Error('error');
 
             Vow.all(promises).fail(function(_error) {
@@ -70,9 +125,9 @@ module.exports = {
                 test.done();
             });
 
-            Object.keys(promises).forEach(function(promise, i) {
-                var p = promises[promise];
-                i % 2? p.fulfill() : p.reject(error);
+            Object.keys(resolvers).forEach(function(key, i) {
+                var resolver = resolvers[key];
+                i % 2? resolver.fulfill() : resolver.reject(error);
             });
         },
 
@@ -84,15 +139,26 @@ module.exports = {
         },
 
         'object properties can contains non-promise items' : function(test) {
-            var promises = {a : 'a', b : Vow.promise(), c : Vow.promise(), d : 3, e : undefined};
+            var resolvers = {},
+                promises = {
+                    a : 'a',
+                    b : Vow.promise(function(resolver) {
+                        resolvers.b = resolver;
+                    }),
+                    c : Vow.promise(function(resolver) {
+                        resolvers.c = resolver;
+                    }),
+                    d : 3,
+                    e : undefined
+                };
 
             Vow.all(promises).then(function(vals) {
                 test.deepEqual(vals, { a : 'a', b : 1, c : 2, d : 3, e : undefined});
                 test.done();
             });
 
-            promises.b.fulfill(1);
-            promises.c.fulfill(2);
+            resolvers.b.fulfill(1);
+            resolvers.c.fulfill(2);
         }
     }
 };

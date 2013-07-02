@@ -1,7 +1,18 @@
 module.exports = {
     'for Array' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var promises = [Vow.promise(), Vow.promise(), Vow.promise()];
+            var resolvers = [],
+                promises = [
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    }),
+                    Vow.promise(function(resolver) {
+                        resolvers.push(resolver);
+                    })
+                ];
 
             Vow.allResolved(promises).then(function(_promises) {
                 test.deepEqual(_promises, promises);
@@ -11,7 +22,7 @@ module.exports = {
                 test.done();
             });
 
-            promises.forEach(function(promise, i) {
+            resolvers.forEach(function(promise, i) {
                 i % 2? promise.fulfill() : promise.reject();
             });
         },
@@ -26,7 +37,18 @@ module.exports = {
 
     'for Object' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var promises = { a : Vow.promise(), b : Vow.promise(), c : Vow.promise() };
+            var resolvers = {},
+                promises = {
+                    a : Vow.promise(function(resolver) {
+                        resolvers.a = resolver;
+                    }),
+                    b : Vow.promise(function(resolver) {
+                        resolvers.b = resolver;
+                    }),
+                    c : Vow.promise(function(resolver) {
+                        resolvers.c = resolver;
+                    })
+                };
 
             Vow.allResolved(promises).then(function(_promises) {
                 test.deepEqual(_promises, promises);
@@ -36,8 +58,8 @@ module.exports = {
                 test.done();
             });
 
-            Object.keys(promises).forEach(function(key, i) {
-                i % 2? promises[key].fulfill() : promises[key].reject();
+            Object.keys(resolvers).forEach(function(key, i) {
+                i % 2? resolvers[key].fulfill() : resolvers[key].reject();
             });
         },
 

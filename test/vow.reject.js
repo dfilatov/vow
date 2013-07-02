@@ -7,24 +7,30 @@ module.exports = {
     },
 
     'resulting promise should be rejected if argument is rejected' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         Vow.reject(promise).fail(function(error) {
             test.strictEqual(error, 'error');
             test.done();
         });
 
-        promise.reject('error');
+        resolver.reject('error');
     },
 
     'resulting promise should be rejected if argument is fulfilled' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         Vow.reject(promise).fail(function(error) {
             test.strictEqual(error, 'val');
             test.done();
         });
 
-        promise.fulfill('val');
+        resolver.fulfill('val');
     }
 };

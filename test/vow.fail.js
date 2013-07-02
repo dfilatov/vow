@@ -1,12 +1,15 @@
 module.exports = {
     'onRejected callback should be called when argument rejected' : function(test) {
-        var promise = Vow.promise();
+        var resolver,
+            promise = Vow.promise(function(_resolver) {
+                resolver = _resolver;
+            });
 
         Vow.fail(promise, function(error) {
             test.strictEqual(error, 'err');
             test.done();
         });
 
-        promise.reject('err');
+        resolver.reject('err');
     }
 };
