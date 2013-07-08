@@ -83,6 +83,10 @@ promise.reject(Error('internal error')); // reject promise with Error object
 ````
 ####notify(value)####
 Notify promise for progress with given ````value````
+````javascript
+var promise = Vow.promise();
+promise.notify(20); // notify promise with 20 value
+````
 
 ####isFulfilled()####
 Returns whether the promise is fulfilled
@@ -157,6 +161,14 @@ promise.fulfill('ok'); // or promise.reject(Error('error'));
 ####progress(onProgress, [context])####
 Arranges to call ````onProgress```` with given ````context```` on the promise if it is notified.
 Shortcut for ````then(null, null, onProgress)````.
+````javascript
+var promise = Vow.promise();
+promise.notify(
+    function(val) { // to be called when promise is notified
+        console.log('performed ' + val + '% of the job'); // -> performed 20% of the job
+    });
+promise.notify(20);
+````
 
 ####spread([onFulfilled], [onRejected], [context])####
 Like "then", but "spreads" the array into a variadic value handler.
