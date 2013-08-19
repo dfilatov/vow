@@ -1,3 +1,5 @@
+var nextTick = typeof setImmediate === 'function'? setImmediate : process.nextTick;
+
 module.exports = {
     'onRejected callbacks should be called on reject only' : function(test) {
         var promise = Vow.promise(),
@@ -111,10 +113,10 @@ module.exports = {
             resOrder.push(3);
         });
 
-        process.nextTick(function() {
-            process.nextTick(function() {
+        nextTick(function() {
+            nextTick(function() {
                 resOrder.push(6);
-                process.nextTick(function() {
+                nextTick(function() {
                     resOrder.push(7);
                 });
                 promise.then(null, function() {
