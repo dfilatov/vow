@@ -196,7 +196,7 @@ promise.done(); // exception to be thrown
 Returns a new promise that will be fulfilled in ````delay```` milliseconds if the promise is fulfilled, or immediately rejected if promise is rejected.
 
 ####timeout(timeout)####
-Returns a new promise that wiil be rejected in ````timeout```` milliseconds if the promise is not resolved beforehand.
+Returns a new promise that will be rejected in ````timeout```` milliseconds if the promise is not resolved beforehand.
 ````javascript
 var promise = Vow.promise(),
     promiseWithTimeout1 = promise.timeout(50),
