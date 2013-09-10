@@ -300,7 +300,7 @@ promise2.valueOf(); // instance of Error
 ````
 
 ####all(promisesOrValues)####
-Returns a promise to be fulfilled only after all the items in ````promisesOrValues```` are fulfilled, or to be rejected when the any of the promises is rejected.
+Returns a promise to be fulfilled only after all the items in ````promisesOrValues```` are fulfilled, or to be rejected when any of the promises is rejected.
 
 ````promisesOrValues```` can be Array:
 ````javascript
@@ -346,10 +346,10 @@ promise2.fulfill('ok');
 ````
 
 ####any(promisesOrValues)####
-Returns a promise to be fulfilled only when any of the item in ````promisesOrValues```` are fulfilled, or to be rejected when all the items are rejected (with the reason of the first rejected item).
+Returns a promise to be fulfilled only when any of the items in ````promisesOrValues```` are fulfilled, or to be rejected when all the items are rejected (with the reason of the first rejected item).
 
 ####delay(value, delay)####
-Static equivalent for [promise.delay](#delaydelay). If given ````value```` is not a promise, then ````value```` is equivalent to fulfilled promise.
+Static equivalent to [promise.delay](#delaydelay). If given ````value```` is not a promise, then ````value```` is equivalent to fulfilled promise.
 
 ####timeout(value, timeout)####
-Static equivalent for [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, then ````value```` is equivalent to fulfilled promise.
+Static equivalent to [promise.timeout](#timeouttimeout). If given ````value```` is not a promise, then ````value```` is equivalent to fulfilled promise.
