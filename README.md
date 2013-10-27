@@ -226,6 +226,9 @@ withPromise.then(
     },
     function(err) {
         promise.reject(err);
+    },
+    function(val) {
+        promise.notify(val);
     });
 ````
 
