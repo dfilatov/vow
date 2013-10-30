@@ -2,7 +2,7 @@
     "name" : "vow",
     "version" : "0.3.10",
     "description" : "Promises/A+ proposal compatible promises library",
-    "homepage" : "https://github.com/dfilatov/jspromise",
+    "homepage" : "https://github.com/dfilatov/vow",
     "keywords" : ["nodejs", "browser", "async", "promise", "a+"],
     "author" : "Dmitry Filatov <dfilatov@yandex-team.ru>",
     "contributors" : [{
@@ -11,7 +11,7 @@
     }],
     "repository":{
         "type" : "git",
-        "url"  : "http://github.com/dfilatov/jspromise.git"
+        "url"  : "http://github.com/dfilatov/vow.git"
     },
     "dependencies": {},
     "devDependencies": {
