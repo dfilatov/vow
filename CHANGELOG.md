@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.3.11
+-----
+  * Fix bug with inner timer in `delay` method [#45](https://github.com/dfilatov/jspromise/issues/45)
+
 0.3.10
 -----
   * Use `setImmediate` instead of `process.nextTick` in Node.js >= 0.10.x [#40](https://github.com/dfilatov/jspromise/issues/40)
