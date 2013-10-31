@@ -4,7 +4,8 @@ module.exports = {
             resPromise = origPromise.delay(30);
 
         setTimeout(function() {
-            test.ok(!resPromise.isResolved());
+            test.ok(!resPromise.isRejected());
+            test.ok(!resPromise.isFulfilled());
         }, 20);
         setTimeout(function() {
             test.ok(resPromise.isFulfilled());

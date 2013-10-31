@@ -1,9 +1,9 @@
 var Vow = require('../..');
 
 module.exports = {
-    fulfilled : function(val) {
+    resolved : function(val) {
         var promise = Vow.promise();
-        promise.fulfill(val);
+        promise.resolve(val);
         return promise;
     },
 
@@ -13,13 +13,13 @@ module.exports = {
         return promise;  
     },
 
-    pending : function() {
+    deferred : function() {
         var promise = Vow.promise();
         return {
             promise : promise,
             
-            fulfill : function(val) {
-                promise.fulfill(val);
+            resolve : function(val) {
+                promise.resolve(val);
             },
 
             reject : function(reason) {
