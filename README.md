@@ -163,7 +163,7 @@ Arranges to call ````onProgress```` with given ````context```` on the promise if
 Shortcut for ````then(null, null, onProgress)````.
 ````javascript
 var promise = Vow.promise();
-promise.notify(
+promise.progress(
     function(val) { // to be called when promise is notified
         console.log('performed ' + val + '% of the job'); // -> performed 20% of the job
     });
