@@ -165,9 +165,12 @@ Shortcut for ````then(null, null, onProgress)````.
 var promise = Vow.promise();
 promise.progress(
     function(val) { // to be called when promise is notified
-        console.log('performed ' + val + '% of the job'); // -> performed 20% of the job
+        console.log('performed ' + val + '% of the job');
     });
-promise.notify(20);
+    
+promise.notify(20); // performed 20% of the job
+promise.notify(40); // performed 40% of the job
+promise.notify(60); // performed 60% of the job
 ````
 
 ####spread([onFulfilled], [onRejected], [context])####
