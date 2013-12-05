@@ -1,11 +1,8 @@
 module.exports = {
     'onResolved callback should be called on fulfill' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            });
-        resolver.fulfill('ok');
-        promise.always(function(promise) {
+        var resolver = Vow.resolver();
+        resolver.resolve('ok');
+        resolver.promise().always(function(promise) {
             test.ok(promise.isFulfilled());
             test.strictEqual(promise.valueOf(), 'ok');
             test.done();
@@ -13,10 +10,8 @@ module.exports = {
     },
 
     'onResolved callback should be called on reject' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            });
+        var resolver = Vow.resolver(),
+            promise = Vow.promise(resolver);
         resolver.reject('error');
         promise.always(function(promise) {
             test.ok(promise.isRejected());
@@ -26,11 +21,9 @@ module.exports = {
     },
 
     'resulting promise should be fulfilled with returned value of onResolved callback' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            });
-        resolver.fulfill('ok');
+        var resolver = Vow.resolver(),
+            promise = Vow.promise(resolver);
+        resolver.resolve('ok');
         promise
             .always(function() {
                 return 'ok-always';
@@ -42,11 +35,9 @@ module.exports = {
     },
 
     'resulting promise should be rejected with exception in onResolved callback' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            });
-        resolver.fulfill('ok');
+        var resolver = Vow.resolver(),
+            promise = Vow.promise(resolver);
+        resolver.resolve('ok');
         promise
             .always(function() {
                 throw 'error-always';

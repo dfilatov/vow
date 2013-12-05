@@ -5,7 +5,7 @@
         "cliff" : "",
         "benchmark" : "",
         "q" : "0.9.2",
-        "when" : "2.0.0"
+        "when" : "2.7.0"
     },
     "private" : true
 }

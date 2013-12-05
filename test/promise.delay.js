@@ -1,10 +1,7 @@
 module.exports = {
     'resulting promise should be fulfilled after delay' : function(test) {
-        var resolver,
-            origPromise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
-            resPromise = origPromise.delay(30);
+        var resolver = Vow.resolver(),
+            resPromise = resolver.promise().delay(30);
 
         setTimeout(function() {
             test.ok(!resPromise.isRejected());
@@ -15,15 +12,12 @@ module.exports = {
             test.strictEqual(resPromise.valueOf(), 'ok');
             test.done();
         }, 40);
-        resolver.fulfill('ok');
+        resolver.resolve('ok');
     },
 
     'resulting promise should be immediately rejected' : function(test) {
-        var resolver,
-            origPromise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
-            resPromise = origPromise.delay(30);
+        var resolver = Vow.resolver(),
+            resPromise = resolver.promise().delay(30);
 
         setTimeout(function() {
             test.ok(resPromise.isRejected());
