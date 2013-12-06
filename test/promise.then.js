@@ -1,45 +1,45 @@
 module.exports = {
     'resulting promise should be fulfilled with same value' : function(test) {
-        var resolver = Vow.resolver();
+        var defer = Vow.defer();
 
-        resolver.promise().then().then(function(val) {
+        defer.promise().then().then(function(val) {
             test.strictEqual(val, 'val');
             test.done();
         });
 
-        resolver.resolve('val');
+        defer.resolve('val');
     },
 
     'resulting promise should be rejected with same reason' : function(test) {
-        var resolver = Vow.resolver(),
+        var defer = Vow.defer(),
             error = new Error('error');
 
-        resolver.promise().then().then(null, function(_error) {
+        defer.promise().then().then(null, function(_error) {
             test.strictEqual(_error, error);
             test.done();
         });
 
-        resolver.reject(error);
+        defer.reject(error);
     },
 
     'resulting promise should be notified with same value' : function(test) {
-        var resolver = Vow.resolver();
+        var defer = Vow.defer();
 
-        resolver.promise().then().then(null, null, function(val) {
+        defer.promise().then().then(null, null, function(val) {
             test.strictEqual(val, 1);
             test.done();
         });
 
-        resolver.notify(1);
+        defer.notify(1);
     },
 
     'resulting promise should be fulfilled with returned value of onFulfilled callback' : function(test) {
-        var resolver = Vow.resolver(),
-            resPromise = resolver.promise().then(function() {
+        var defer = Vow.defer(),
+            resPromise = defer.promise().then(function() {
                 return 'val';
             });
 
-        resolver.resolve();
+        defer.resolve();
 
         resPromise.then(function(val) {
             test.strictEqual(val, 'val');
@@ -48,14 +48,14 @@ module.exports = {
     },
 
     'resulting promise should be fulfilled with same value as returned promise of onFulfilled callback' : function(test) {
-        var resolver = Vow.resolver(),
-            retResolver = Vow.resolver(),
-            resPromise = resolver.promise().then(function() {
-                return retResolver.promise();
+        var defer = Vow.defer(),
+            retdefer = Vow.defer(),
+            resPromise = defer.promise().then(function() {
+                return retdefer.promise();
             });
 
-        resolver.promise().then(function() {
-            retResolver.resolve('ok');
+        defer.promise().then(function() {
+            retdefer.resolve('ok');
         });
 
         resPromise.then(function(val) {
@@ -63,19 +63,19 @@ module.exports = {
             test.done();
         });
 
-        resolver.resolve();
+        defer.resolve();
     },
 
     'resulting promise should be rejected with same value as returned promise of onRejected callback' : function(test) {
-        var resolver = Vow.resolver(),
-            retResolver = Vow.resolver(),
-            resPromise = resolver.promise().then(function() {
-                return retResolver.promise();
+        var defer = Vow.defer(),
+            retdefer = Vow.defer(),
+            resPromise = defer.promise().then(function() {
+                return retdefer.promise();
             }),
             error = new Error('error');
 
-        resolver.promise().then(function() {
-            retResolver.reject(error);
+        defer.promise().then(function() {
+            retdefer.reject(error);
         });
 
         resPromise.then(null, function(_error) {
@@ -83,12 +83,12 @@ module.exports = {
             test.done();
         });
 
-        resolver.resolve();
+        defer.resolve();
     },
 
     'resulting promise should be rejected if onFulfilled callback throw exception' : function(test) {
-        var resolver = Vow.resolver(),
-            resPromise = resolver.promise().then(function() {
+        var defer = Vow.defer(),
+            resPromise = defer.promise().then(function() {
                 throw { message : 'error' };
             });
 
@@ -97,12 +97,12 @@ module.exports = {
             test.done();
         });
 
-        resolver.resolve();
+        defer.resolve();
     },
 
     'resulting promise should be rejected if onRejected callback throw exception' : function(test) {
-        var resolver = Vow.resolver(),
-            resPromise = resolver.promise().then(null, function() {
+        var defer = Vow.defer(),
+            resPromise = defer.promise().then(null, function() {
                 throw { message : 'error' };
             });
 
@@ -111,18 +111,18 @@ module.exports = {
             test.done();
         });
 
-        resolver.reject();
+        defer.reject();
     },
 
     'resulting promise should be notified with same value as returned promise of onFulfilled callback' : function(test) {
-        var resolver = Vow.resolver(),
-            retResolver = Vow.resolver(),
-            resPromise = resolver.promise().then(function() {
-                return retResolver.promise();
+        var defer = Vow.defer(),
+            retdefer = Vow.defer(),
+            resPromise = defer.promise().then(function() {
+                return retdefer.promise();
             });
 
-        resolver.promise().then(function() {
-            retResolver.notify('ok');
+        defer.promise().then(function() {
+            retdefer.notify('ok');
         });
 
         resPromise.then(null, null, function(val) {
@@ -130,18 +130,18 @@ module.exports = {
             test.done();
         });
 
-        resolver.resolve();
+        defer.resolve();
     },
 
     'resulting promise should be notified with same value as returned promise of onRejected callback' : function(test) {
-        var resolver = Vow.resolver(),
-            retResolver = Vow.resolver(),
-            resPromise = resolver.promise().then(null, function() {
-                return retResolver.promise();
+        var defer = Vow.defer(),
+            retdefer = Vow.defer(),
+            resPromise = defer.promise().then(null, function() {
+                return retdefer.promise();
             });
 
-        resolver.promise().then(null, function() {
-            retResolver.notify('ok');
+        defer.promise().then(null, function() {
+            retdefer.notify('ok');
         });
 
         resPromise.then(null, null, function(val) {
@@ -149,13 +149,13 @@ module.exports = {
             test.done();
         });
 
-        resolver.reject();
+        defer.reject();
     },
 
     'resulting promise should be notified with returned value of onProgress callback' : function(test) {
-        var resolver = Vow.resolver();
+        var defer = Vow.defer();
 
-        resolver.promise()
+        defer.promise()
             .then(null, null, function(val) {
                 return val + 1;
             })
@@ -164,42 +164,42 @@ module.exports = {
                 test.done();
             });
 
-        resolver.notify(1);
+        defer.notify(1);
     },
 
     'onFulfilled callback should be called in given context' : function(test) {
-        var resolver = Vow.resolver(),
+        var defer = Vow.defer(),
             ctx = {};
 
-        resolver.promise().then(function() {
+        defer.promise().then(function() {
             test.strictEqual(ctx, this);
             test.done();
         }, ctx);
 
-        resolver.resolve();
+        defer.resolve();
     },
 
     'onRejected callback should be called in given context' : function(test) {
-        var resolver = Vow.resolver(),
+        var defer = Vow.defer(),
             ctx = {};
 
-        resolver.promise().then(null, function() {
+        defer.promise().then(null, function() {
             test.strictEqual(ctx, this);
             test.done();
         }, ctx);
 
-        resolver.reject();
+        defer.reject();
     },
 
     'onProgress callback should be called in given context' : function(test) {
-        var resolver = Vow.resolver(),
+        var defer = Vow.defer(),
             ctx = {};
 
-        resolver.promise().then(null, null, function() {
+        defer.promise().then(null, null, function() {
             test.strictEqual(ctx, this);
             test.done();
         }, ctx);
 
-        resolver.notify();
+        defer.notify();
     }
 };

@@ -7,7 +7,7 @@ var fs = require('fs'),
 require('nodeunit').reporters.default.run(
     fs.readdirSync(dir)
         .filter(function(file){
-            return fs.statSync(path.join(dir, file)).isFile() && file === 'promise.then.js';
+            return fs.statSync(path.join(dir, file)).isFile() && file === 'vow.allPatiently.js';
         })
         .map(function(file) {
             return path.join('test', file);

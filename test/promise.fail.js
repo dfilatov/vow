@@ -1,9 +1,9 @@
 module.exports = {
     'onRejected callback should be called on reject' : function(test) {
-        var resolver = Vow.resolver();
+        var defer = Vow.defer();
 
-        resolver.reject('error');
-        resolver.promise().fail(function(error) {
+        defer.reject('error');
+        defer.promise().fail(function(error) {
             test.strictEqual(error, 'error');
             test.done();
         });

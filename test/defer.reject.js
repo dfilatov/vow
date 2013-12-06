@@ -2,10 +2,8 @@ var nextTick = typeof setImmediate === 'function'? setImmediate : process.nextTi
 
 module.exports = {
     'onRejected callbacks should be called on reject only' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
+        var defer = Vow.defer(),
+            promise = defer.promise(),
             called1 = false,
             called2 = false,
             called3 = false,
@@ -23,7 +21,7 @@ module.exports = {
             called3 = true;
         });
 
-        resolver.reject();
+        defer.reject();
 
         promise.then(null, function() {
             called4 = true;
@@ -38,18 +36,16 @@ module.exports = {
     },
 
     'onRejected callbacks should be called once' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
+        var defer = Vow.defer(),
+            promise = defer.promise(),
             calledCnt = 0;
 
         promise.then(null, function() {
             calledCnt++;
         });
 
-        resolver.reject();
-        resolver.reject();
+        defer.reject();
+        defer.reject();
 
         promise.then(null, function() {
             test.strictEqual(calledCnt, 1);
@@ -58,18 +54,16 @@ module.exports = {
     },
 
     'onRejected callbacks shouldn\'t be called if reject have been called after fulfill' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
+        var defer = Vow.defer(),
+            promise = defer.promise(),
             called = false;
 
         promise.then(null, function() {
             called = true;
         });
 
-        resolver.fulfill();
-        resolver.reject();
+        defer.resolve();
+        defer.reject();
 
         promise.then(function() {
             test.ok(!called);
@@ -78,10 +72,8 @@ module.exports = {
     },
 
     'onRejected callbacks should be executed in the order of their originating calls to then' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
+        var defer = Vow.defer(),
+            promise = defer.promise(),
             resOrder = [];
 
         promise.then(null, function() {
@@ -92,7 +84,7 @@ module.exports = {
             resOrder.push(2);
         });
 
-        resolver.reject();
+        defer.reject();
 
         promise.then(null, function() {
             resOrder.push(3);
@@ -118,10 +110,8 @@ module.exports = {
     },
 
     'onRejected callback shouldn\'t be called in the same turn of the event loop as the call to then' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
+        var defer = Vow.defer(),
+            promise = defer.promise(),
             resOrder = [];
 
         promise.then(null, function() {
@@ -151,7 +141,7 @@ module.exports = {
         });
 
         resOrder.push(1);
-        resolver.reject();
+        defer.reject();
 
         setTimeout(function() {
             test.deepEqual(resOrder, [1, 2, 3, 4, 5, 6, 7, 8]);

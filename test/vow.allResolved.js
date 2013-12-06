@@ -1,16 +1,16 @@
 module.exports = {
     'for Array' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var resolvers = [],
+            var defers = [],
                 promises = [
-                    Vow.promise(function(resolver) {
-                        resolvers.push(resolver);
+                    Vow.promise(function(defer) {
+                        defers.push(defer);
                     }),
-                    Vow.promise(function(resolver) {
-                        resolvers.push(resolver);
+                    Vow.promise(function(defer) {
+                        defers.push(defer);
                     }),
-                    Vow.promise(function(resolver) {
-                        resolvers.push(resolver);
+                    Vow.promise(function(defer) {
+                        defers.push(defer);
                     })
                 ];
 
@@ -22,7 +22,7 @@ module.exports = {
                 test.done();
             });
 
-            resolvers.forEach(function(promise, i) {
+            defers.forEach(function(promise, i) {
                 i % 2? promise.fulfill() : promise.reject();
             });
         },
@@ -37,16 +37,16 @@ module.exports = {
 
     'for Object' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var resolvers = {},
+            var defers = {},
                 promises = {
-                    a : Vow.promise(function(resolver) {
-                        resolvers.a = resolver;
+                    a : Vow.promise(function(defer) {
+                        defers.a = defer;
                     }),
-                    b : Vow.promise(function(resolver) {
-                        resolvers.b = resolver;
+                    b : Vow.promise(function(defer) {
+                        defers.b = defer;
                     }),
-                    c : Vow.promise(function(resolver) {
-                        resolvers.c = resolver;
+                    c : Vow.promise(function(defer) {
+                        defers.c = defer;
                     })
                 };
 
@@ -58,8 +58,8 @@ module.exports = {
                 test.done();
             });
 
-            Object.keys(resolvers).forEach(function(key, i) {
-                i % 2? resolvers[key].fulfill() : resolvers[key].reject();
+            Object.keys(defers).forEach(function(key, i) {
+                i % 2? defers[key].fulfill() : defers[key].reject();
             });
         },
 

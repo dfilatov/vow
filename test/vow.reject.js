@@ -7,9 +7,9 @@ module.exports = {
     },
 
     'resulting promise should be rejected if argument is rejected' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
+        var defer,
+            promise = Vow.promise(function(_defer) {
+                defer = _defer;
             });
 
         Vow.reject(promise).fail(function(error) {
@@ -17,13 +17,13 @@ module.exports = {
             test.done();
         });
 
-        resolver.reject('error');
+        defer.reject('error');
     },
 
     'resulting promise should be rejected if argument is fulfilled' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
+        var defer,
+            promise = Vow.promise(function(_defer) {
+                defer = _defer;
             });
 
         Vow.reject(promise).fail(function(error) {
@@ -31,6 +31,6 @@ module.exports = {
             test.done();
         });
 
-        resolver.fulfill('val');
+        defer.fulfill('val');
     }
 };

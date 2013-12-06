@@ -1,33 +1,27 @@
 module.exports = {
     'should return undefined if promise is unresolved' : function(test) {
-        var promise = Vow.promise();
+        var promise = Vow.defer().promise();
 
         test.strictEqual(promise.valueOf(), undefined);
         test.done();
     },
 
     'should return value of fulfillment if promise if fulfilled' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            });
+        var defer = Vow.defer();
 
-        resolver.fulfill('ok');
+        defer.resolve('ok');
 
-        test.strictEqual(promise.valueOf(), 'ok');
+        test.strictEqual(defer.promise().valueOf(), 'ok');
         test.done();
     },
 
     'should return reason of rejection if promise if rejected' : function(test) {
-        var resolver,
-            promise = Vow.promise(function(_resolver) {
-                resolver = _resolver;
-            }),
+        var defer = Vow.defer(),
             error = Error();
 
-        resolver.reject(error);
+        defer.reject(error);
 
-        test.strictEqual(promise.valueOf(), error);
+        test.strictEqual(defer.promise().valueOf(), error);
         test.done();
     }
 };

@@ -1,18 +1,18 @@
 module.exports = {
-    resolversToPromises : function(resolvers) {
-        if(Array.isArray(resolvers)) {
-            return resolvers.map(function(resolver) {
-                return resolver instanceof Vow.Resolver?
-                    resolver.promise() :
-                    resolver;
+    defersToPromises : function(defers) {
+        if(Array.isArray(defers)) {
+            return defers.map(function(defer) {
+                return defer instanceof Vow.Deferred?
+                    defer.promise() :
+                    defer;
             });
         }
 
         var res = {};
-        Object.keys(resolvers).forEach(function(key) {
-            res[key] = resolvers[key] instanceof Vow.Resolver?
-                resolvers[key].promise() :
-                resolvers[key];
+        Object.keys(defers).forEach(function(key) {
+            res[key] = defers[key] instanceof Vow.Deferred?
+                defers[key].promise() :
+                defers[key];
         });
         return res;
     }

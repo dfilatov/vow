@@ -1,8 +1,8 @@
 module.exports = {
     'onResolved callback should be called on fulfill' : function(test) {
-        var resolver = Vow.resolver();
-        resolver.resolve('ok');
-        resolver.promise().always(function(promise) {
+        var defer = Vow.defer();
+        defer.resolve('ok');
+        defer.promise().always(function(promise) {
             test.ok(promise.isFulfilled());
             test.strictEqual(promise.valueOf(), 'ok');
             test.done();
@@ -10,9 +10,9 @@ module.exports = {
     },
 
     'onResolved callback should be called on reject' : function(test) {
-        var resolver = Vow.resolver(),
-            promise = Vow.promise(resolver);
-        resolver.reject('error');
+        var defer = Vow.defer(),
+            promise = Vow.promise(defer);
+        defer.reject('error');
         promise.always(function(promise) {
             test.ok(promise.isRejected());
             test.strictEqual(promise.valueOf(), 'error');
@@ -21,9 +21,9 @@ module.exports = {
     },
 
     'resulting promise should be fulfilled with returned value of onResolved callback' : function(test) {
-        var resolver = Vow.resolver(),
-            promise = Vow.promise(resolver);
-        resolver.resolve('ok');
+        var defer = Vow.defer(),
+            promise = Vow.promise(defer);
+        defer.resolve('ok');
         promise
             .always(function() {
                 return 'ok-always';
@@ -35,9 +35,9 @@ module.exports = {
     },
 
     'resulting promise should be rejected with exception in onResolved callback' : function(test) {
-        var resolver = Vow.resolver(),
-            promise = Vow.promise(resolver);
-        resolver.resolve('ok');
+        var defer = Vow.defer(),
+            promise = Vow.promise(defer);
+        defer.resolve('ok');
         promise
             .always(function() {
                 throw 'error-always';
