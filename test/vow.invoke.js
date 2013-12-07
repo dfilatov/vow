@@ -23,9 +23,12 @@ module.exports = {
         });
     },
 
-    'if function return promise it should be result' : function(test) {
-        var promise = Vow.promise();
-        test.strictEqual(promise, Vow.invoke(function() { return promise; }));
-        test.done();
+    'if function return promise then result should adopt it state' : function(test) {
+        var defer = Vow.defer();
+        Vow.invoke(function() { return defer.promise(); }).then(function(val) {
+            test.strictEqual(val, 'ok');
+            test.done();
+        });
+        defer.resolve('ok')
     }
 };

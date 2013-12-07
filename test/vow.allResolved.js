@@ -1,29 +1,20 @@
+var defersToPromises = require('./utils/helpers').defersToPromises;
+
 module.exports = {
     'for Array' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var defers = [],
-                promises = [
-                    Vow.promise(function(defer) {
-                        defers.push(defer);
-                    }),
-                    Vow.promise(function(defer) {
-                        defers.push(defer);
-                    }),
-                    Vow.promise(function(defer) {
-                        defers.push(defer);
-                    })
-                ];
+            var defers = [Vow.defer(), Vow.defer(), Vow.defer()];
 
-            Vow.allResolved(promises).then(function(_promises) {
-                test.deepEqual(_promises, promises);
-                _promises.forEach(function(promise, i) {
+            Vow.allResolved(defersToPromises(defers)).then(function(promises) {
+                test.deepEqual(defersToPromises(defers), promises);
+                promises.forEach(function(promise, i) {
                     test.ok(i % 2? promise.isFulfilled() : promise.isRejected());
                 });
                 test.done();
             });
 
             defers.forEach(function(promise, i) {
-                i % 2? promise.fulfill() : promise.reject();
+                i % 2? promise.resolve() : promise.reject();
             });
         },
 
@@ -37,29 +28,22 @@ module.exports = {
 
     'for Object' : {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
-            var defers = {},
-                promises = {
-                    a : Vow.promise(function(defer) {
-                        defers.a = defer;
-                    }),
-                    b : Vow.promise(function(defer) {
-                        defers.b = defer;
-                    }),
-                    c : Vow.promise(function(defer) {
-                        defers.c = defer;
-                    })
+            var defers = {
+                    a : Vow.defer(),
+                    b : Vow.defer(),
+                    c : Vow.defer()
                 };
 
-            Vow.allResolved(promises).then(function(_promises) {
-                test.deepEqual(_promises, promises);
-                Object.keys(_promises).forEach(function(key, i) {
-                    test.ok(i % 2? _promises[key].isFulfilled() : _promises[key].isRejected());
+            Vow.allResolved(defersToPromises(defers)).then(function(promises) {
+                test.deepEqual(defersToPromises(defers), promises);
+                Object.keys(promises).forEach(function(key, i) {
+                    test.ok(i % 2? promises[key].isFulfilled() : promises[key].isRejected());
                 });
                 test.done();
             });
 
             Object.keys(defers).forEach(function(key, i) {
-                i % 2? defers[key].fulfill() : defers[key].reject();
+                i % 2? defers[key].resolve() : defers[key].reject();
             });
         },
 

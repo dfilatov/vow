@@ -1,26 +1,20 @@
 module.exports = {
     'onResolved callback should be called when argument fulfilled' : function(test) {
-        var defer,
-            promise = Vow.promise(function(_defer) {
-                defer = _defer;
-            });
+        var defer = Vow.defer();
 
-        Vow.always(promise, function(promise) {
+        Vow.always(defer.promise(), function(promise) {
             test.ok(promise.isFulfilled());
             test.strictEqual(promise.valueOf(), 'ok');
             test.done();
         });
 
-        defer.fulfill('ok');
+        defer.resolve('ok');
     },
 
     'onResolved callback should be called when argument rejected' : function(test) {
-        var defer,
-            promise = Vow.promise(function(_defer) {
-                defer = _defer;
-            });
+        var defer = Vow.defer();
 
-        Vow.always(promise, function(promise) {
+        Vow.always(defer.promise(), function(promise) {
             test.ok(promise.isRejected());
             test.strictEqual(promise.valueOf(), 'err');
             test.done();

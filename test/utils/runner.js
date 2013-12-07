@@ -7,16 +7,16 @@ var fs = require('fs'),
 require('nodeunit').reporters.default.run(
     fs.readdirSync(dir)
         .filter(function(file){
-            return fs.statSync(path.join(dir, file)).isFile() && file === 'vow.allPatiently.js';
+            return fs.statSync(path.join(dir, file)).isFile();
         })
         .map(function(file) {
             return path.join('test', file);
         }),
     null,
     function(err) {
-//        err?
-//            process.exit(1) :
-//            require('promises-aplus-tests')(require('./aplus-adapter'), function(err) {
-//                err && process.exit(1);
-//            });
+        err?
+            process.exit(1) :
+            require('promises-aplus-tests')(require('./aplus-adapter'), function(err) {
+                err && process.exit(1);
+            });
     });

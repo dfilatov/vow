@@ -1,25 +1,19 @@
 module.exports = {
     'onFulfilled callback should be called when argument fulfilled' : function(test) {
-        var defer,
-            promise = Vow.promise(function(_defer) {
-                defer = _defer;
-            });
+        var defer = Vow.defer();
 
-        Vow.when(promise, function(val) {
+        Vow.when(defer.promise(), function(val) {
             test.strictEqual(val, 'val');
             test.done();
         });
 
-        defer.fulfill('val');
+        defer.resolve('val');
     },
 
     'onRejected callback should be called when argument rejected' : function(test) {
-        var defer,
-            promise = Vow.promise(function(_defer) {
-                defer = _defer;
-            });
+        var defer = Vow.defer();
 
-        Vow.when(promise, null, function(error) {
+        Vow.when(defer.promise(), null, function(error) {
             test.strictEqual(error, 'err');
             test.done();
         });
@@ -35,12 +29,9 @@ module.exports = {
     },
 
     'onProgress callback should be called when argument notified' : function(test) {
-        var defer,
-            promise = Vow.promise(function(_defer) {
-                defer = _defer;
-            });
+        var defer = Vow.defer();;
 
-        Vow.when(promise, null, null, function(val) {
+        Vow.when(defer.promise(), null, null, function(val) {
             test.strictEqual(val, 'val');
             test.done();
         });

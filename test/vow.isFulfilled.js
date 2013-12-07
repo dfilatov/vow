@@ -1,23 +1,19 @@
 module.exports = {
     'should return promise state if argument is promise' : function(test) {
-        var pendingPromise = Vow.promise();
+        var pendingPromise = Vow.defer().promise();
         test.ok(Vow.isFulfilled(pendingPromise) === pendingPromise.isFulfilled());
 
-        var fulfilledPromise = Vow.promise('val');
+        var fulfilledPromise = Vow.fulfill('val');
         test.ok(Vow.isFulfilled(fulfilledPromise) === fulfilledPromise.isFulfilled());
 
-        var defer,
-            rejectedPromise = Vow.promise(function(_defer) {
-                defer = _defer;
-            });
-        defer.reject('error');
-        test.ok(Vow.isFulfilled(rejectedPromise) === rejectedPromise.isFulfilled());
+        var rejectedPromise = Vow.reject('error');
+        test.ok(Vow.isRejected(rejectedPromise) === rejectedPromise.isRejected());
 
         test.done();
     },
 
     'should be true if argument is non-promise' : function(test) {
-        test.ok(Vow.isFulfilled('val'))
+        test.ok(Vow.isFulfilled('val'));
         test.done();
     }
 };
