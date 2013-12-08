@@ -61,16 +61,16 @@ var cliff = require('cliff'),
         'Vow' : function(deferred) {
             var toResolve = [],
                 topPromises = Object.keys(data).map(function(key) {
-                    var resolver = Vow.resolver();
+                    var defer = Vow.defer();
                     Vow.all(data[key].map(function(val) {
-                            var resolver = Vow.resolver();
-                            toResolve.push({ resolver : resolver, val : val });
+                            var resolver = Vow.defer();
+                            toResolve.push({ defer : defer, val : val });
                             return resolver.promise();
                         }))
                         .then(function(val) {
-                            resolver.resolve(val);
+                            defer.resolve(val);
                         });
-                    return resolver.promise();
+                    return defer.promise();
                 });
 
             Vow.all(topPromises).then(function() {
@@ -78,7 +78,7 @@ var cliff = require('cliff'),
             });
 
             toResolve.forEach(function(obj) {
-                obj.resolver.resolve(obj.val);
+                obj.defer.resolve(obj.val);
             });
         }
     },
