@@ -1,0 +1,186 @@
+.body__page {
+    margin: 0;
+    padding: 1em 2em;
+    font: .9em Lato, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    background: #444;
+    color: #ddd;
+}
+
+a {
+    color: #fc0;
+    transition: color .2s;
+}
+
+a:hover {
+    color: #f90;
+}
+
+.module__name {
+    margin: 0;
+    font-size: 2.5em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, .5);
+}
+
+.js-type__name {
+    font-style: italic;
+    margin: .2em 0;
+}
+
+.js-type__prop {
+    margin: 0.2em 0;
+    padding: .5em;
+}
+
+.js-type__key {
+    float: left;
+    width: 7em;
+}
+
+.js-type__val {
+    margin-left: 8em;
+}
+
+.module__prop {
+    margin: .4em 0;
+}
+
+.params_view_table .params__param,
+.cons,
+.returns {
+    margin: 0;
+}
+
+.params_view_table .params__param {
+    margin-top: .5em;
+}
+
+.module__prop-name,
+.returns__name,
+.cons__name,
+.params_view_table .params__param-name {
+    float: left;
+}
+
+.returns__name,
+.cons__name,
+.params_view_table .params__param-name {
+    width: 9em;
+}
+
+.module__prop-name {
+    width: 4em;
+}
+
+.returns__desc {
+    margin-left: 10em;
+}
+
+.cons__desc {
+    margin-left: 9.5em;
+}
+
+.params_view_table .params__param-desc {
+    margin-left: 9em;
+}
+
+.module__prop-val {
+    margin-left: 5em;
+}
+
+.params_view_list .params__param_optional,
+.params_view_table .params__param_optional .params__param-name {
+    color: #999;
+}
+
+.params__param-optional {
+    margin-left: .4em;
+    font-size: .7em;
+    font-style: italic;
+}
+
+.block,
+.cons,
+.description {
+    margin: .5em 0 .8em;
+}
+
+.block__header {
+    margin: 0;
+    font-size: 1em;
+    font-weight: normal;
+}
+
+.module__prop-name,
+.block__header,
+.cons__name,
+.returns__name {
+    color: #50B600
+}
+
+.block__content {
+    margin: .2em 0 0 1em;
+}
+
+.details {
+    border-bottom: 1px solid transparent;
+}
+
+.details__opener {
+    border-bottom: 1px dotted #777;
+    cursor: pointer;
+}
+
+.details_shown {
+    border-bottom-color: #999;
+}
+
+.details__content {
+    display: none;
+}
+
+.description p {
+    margin: 0 0 .5em;
+}
+
+.description p:last-child {
+    margin-bottom: 0;
+}
+
+.description code {
+    font: 1em Consolas, monospace;
+    background-color: #333;
+    box-shadow: 0 1px 10px rgba(0, 0, 0, 0.3) inset, 0 1px 0 rgba(255, 255, 255, 0.1), 0 -1px 0 rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    margin: 0 2px;
+    padding: 2px 5px;
+}
+
+.description code.lang-js {
+    display: block;
+    margin: 0;
+    padding: 1em;
+}
+
+.description pre {
+    font-size: 100%;
+    font-family: Consolas, monospace;
+    margin: 0;
+    padding: 0;
+}
+
+.description .keyword,
+.description .literal {
+    font-weight: bold;
+}
+
+.description .comment {
+    color: #998;
+}
+
+.description .number {
+    color: #099;
+}
+
+.description .string {
+    color: #dd715b;
+}
