@@ -1,0 +1,217 @@
+match / {
+    <html>
+        apply . head
+        apply . body
+    </html>
+}
+
+match / head {
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" href="index.css"/>
+    </head>
+}
+
+match / body {
+    <body class="body body__page">
+        apply .modules
+        apply . scripts
+    </body>
+}
+
+match .modules {
+    <div class="module">
+        <h1 class="module__name">
+            .name
+        </h1>
+        apply .description
+        <dl class="module__prop">
+            <dt class="module__prop-name">version</dt>
+            <dd class="module__prop-val">
+                .version
+            </dd>
+        </dl>
+        <dl class="module__prop">
+            <dt class="module__prop-name">author</dt>
+            <dd class="module__prop-val">
+                .author.name
+                " "
+                <a class="link" href="mailto:{.author.email}">
+                    .author.email
+                </a>
+            </dd>
+        </dl>
+        <dl class="module__prop">
+            <dt class="module__prop-name">license</dt>
+            <dd class="module__prop-val">
+                apply .license
+            </dd>
+        </dl>
+        <dl class="module__prop">
+            <dt class="module__prop-name">exports</dt>
+            <dd class="module__prop-val">
+                apply .exports
+            </dd>
+        </dl>
+    </div>
+}
+
+match .*[.jsdocType == "type" && .jsType == "Object"] {
+    <div class="js-type js-type_type_object">
+        <span class="js-type__name">Object </span>
+        "{{"
+        apply .props
+        "}}"
+    </div>
+}
+
+match .props {
+    <dl class="js-type__prop">
+        <dt class="js-type__key">
+            .key
+        </dt>
+        <dd class="js-type__val">
+            apply .val
+        </dd>
+    </dl>
+}
+
+match .*[.jsdocType == "type" && .jsType == "Function"] {
+    has-details = boolean(.description | .params | .returns | .example)
+    <div class="js-type js-type_type_function">
+        if has-details {
+            @class += " details"
+        }
+        <span class="js-type__name">
+            if has-details {
+                @class += " details__opener"
+            }
+            "Function"
+        </span>
+        " ("
+        if .params {
+            <span class="params params_view_list">
+                apply .params list
+            </span>
+        }
+        ")"
+        if .returns {
+            " → "
+            <span class="js-type__name">
+                .returns.jsType
+            </span>
+        }
+        if has-details {
+            <div class="details__content">
+                apply .description
+                if .params {
+                    <div class="block">
+                        <div class="block__header">arguments</div>
+                        <div class="block__content params params_view_table">
+                            apply .params table
+                        </div>
+                    </div>
+                }
+                apply .returns
+                apply . examples
+            </div>
+        }
+    </div>
+}
+
+match .params list {
+    <span class="params__param">
+        if .isOptional { @class += " params__param_optional" }
+        if index() > 0 { ", " }
+        .name
+    </span>
+}
+
+match .params table {
+    <dl class="params__param">
+        if .isOptional { @class += " params__param_optional" }
+        <dt class="params__param-name">
+            .name
+            if .isOptional {
+                <sup class="params__param-optional">optional</sup>
+            }
+        </dt>
+        <dd class="params__param-desc">
+            <div class="js-type__name">
+                apply .jsType
+            </div>
+            apply .description
+        </dd>
+    </dl>
+}
+
+match .description | .examples | .license {
+    <div class="description">
+        html(.)
+    </div>
+}
+
+match .returns {
+    <dl class="returns">
+        <dt class="returns__name">returns</dt>
+        <dd class="returns__desc">
+            <div class="js-type__name">
+                apply .jsType
+            </div>
+            apply .description
+        </dd>
+    </dl>
+}
+
+match .*[.jsdocType == "class"] {
+    <div class="js-type js-type_type_class details">
+        <span class="js-type__name details__opener">Class</span>
+        <div class="details__content">
+            apply .description
+            apply .cons cons
+            apply .proto proto
+        </div>
+    </div>
+}
+
+match .cons cons {
+    <dl class="cons">
+        <dt class="cons__name">constructor</dt>
+        <dd class="cons__desc">
+            apply .
+        </dd>
+    </dl>
+}
+
+match .proto proto {
+    <div class="block">
+        <div class="block__header">instance methods</div>
+        <div class="block__content">
+            apply .props
+        </div>
+    </div>
+}
+
+match .jsType {
+    if index() > 0 { " | " }
+    .
+}
+
+match .*[.examples] examples {
+    <div class="block">
+        <div class="block__header">
+            "example"
+            if count(.examples) > 1 {
+                "s"
+            }
+        </div>
+        <div class="block__content">
+            apply .examples
+        </div>
+    </div>
+}
+
+match / scripts {
+    <script type="text/javascript" src="http://yandex.st/jquery/2.0.3/jquery.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+}

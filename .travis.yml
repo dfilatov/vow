@@ -1,10 +1,12 @@
 language: node_js
-
 node_js:
-  - 0.6
-  - 0.8
-  - 0.10
-
+- 0.6
+- 0.8
+- 0.1
 branches:
   only:
-    - master
+  - master
+after_success: ./update-gh-pages.sh
+env:
+  global:
+    secure: SDul0CRIgerC9FzqhAmh5r1qFIHdECxTC0rdDmRqKrpLaLg1nWBorokwkKoY95MDxy3wJto9M8gBeIN/1jejyLVibZqOPKTP4T17kd59korEsj+gkYatGDMw7X5+4djTLfLgSHuwSO9kRIhJMfReULUElYKql0LqCIlJ8WW312o=
