@@ -1,6 +1,6 @@
 module.exports = {
     'should be true if argument is promise' : function(test) {
-        test.ok(Vow.isPromise(Vow.promise()));
+        test.ok(Vow.isPromise(new Vow.Promise()));
         test.done();
     },
 

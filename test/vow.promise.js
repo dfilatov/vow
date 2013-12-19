@@ -1,7 +1,7 @@
 module.exports = {
     'promise should be fulfilled with passed value' : function(test) {
-        Vow
-            .promise(function(resolve) {
+        new Vow
+            .Promise(function(resolve) {
                 resolve('val');
             })
             .then(function(val) {
@@ -11,8 +11,8 @@ module.exports = {
     },
 
     'promise should be rejected with passed value' : function(test) {
-        Vow
-            .promise(function(_, reject) {
+        new Vow
+            .Promise(function(_, reject) {
                 reject('error');
             })
             .fail(function(val) {
@@ -23,8 +23,8 @@ module.exports = {
 
     'promise should be notified with passed value' : function(test) {
         var _notify;
-        Vow
-            .promise(function(_, _, notify) {
+        new Vow
+            .Promise(function(_, _, notify) {
                 _notify = notify;
             })
             .progress(function(val) {
