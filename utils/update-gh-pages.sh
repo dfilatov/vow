@@ -8,7 +8,7 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     ./utils/gen-doc.js lib/vow.js gh-pages/index.html
     git add -A
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER has been pushed to gh-pages"
-    git push origin gh-pages
+    git push https://github.com/dfilatov/vow.git gh-pages
     rm -rf gh-pages
 
     echo "\ngh-pages has been updated successfully\n"
