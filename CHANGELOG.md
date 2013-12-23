@@ -6,8 +6,8 @@ Changelog
   * Implement [DOM Promise](http://dom.spec.whatwg.org/#promises) specification
   * Implement [new Promise A+](https://github.com/promises-aplus/promises-spec) specification
   * Remove `promise.fulfill`, `promise.reject`, `promise.notify` methods
-  * Add `vow.anyResolved` method
-  * Add `vow.cast` method
+  * Add `vow.anyResolved` method [#53](https://github.com/dfilatov/vow/issues/53)
+  * Add `vow.cast` method [#53](https://github.com/dfilatov/vow/issues/56)
 
 0.3.12
 ------
