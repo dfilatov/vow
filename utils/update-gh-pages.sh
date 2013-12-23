@@ -1,5 +1,5 @@
 if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
-    echo "gh-pages is updating...\n"
+    echo "gh-pages is updating..."
 
     git config --global user.email "travis@travis-ci.org"
     git config --global user.name "Travis"
@@ -11,5 +11,5 @@ if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then
     git push https://${GH_TOKEN}@github.com/dfilatov/vow.git gh-pages
     rm -rf gh-pages
 
-    echo "\ngh-pages has been updated successfully\n"
+    echo "gh-pages has been updated successfully"
 fi
