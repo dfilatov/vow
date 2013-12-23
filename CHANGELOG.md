@@ -1,12 +1,24 @@
 Changelog
 =========
 
-0.3.11
+0.4.0
 -----
+  * Implement [DOM Promise](http://dom.spec.whatwg.org/#promises) specification
+  * Implement [new Promise A+](https://github.com/promises-aplus/promises-spec) specification
+  * Remove `promise.fulfill`, `promise.reject`, `promise.notify` methods
+  * Add `vow.anyResolved` method
+  * Add `vow.cast` method
+
+0.3.12
+------
+  * Make `Promise` class accessible from outside
+
+0.3.11
+------
   * Fix bug with inner timer in `delay` method [#45](https://github.com/dfilatov/jspromise/issues/45)
 
 0.3.10
------
+------
   * Use `setImmediate` instead of `process.nextTick` in Node.js >= 0.10.x [#40](https://github.com/dfilatov/jspromise/issues/40)
   * Up Promises/A+ Compliance Test Suite to 1.3.2
 
