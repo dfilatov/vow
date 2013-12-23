@@ -5,7 +5,7 @@ Vow [![Build Status](https://secure.travis-ci.org/dfilatov/vow.png)](http://trav
 =========
 
 Vow is a [Promises/A+](https://github.com/promises-aplus/promises-spec) implementation.
-It also supports [DOM Promises](http://dom.spec.whatwg.org/#promises) specification partially.
+It also supports [DOM Promises](http://dom.spec.whatwg.org/#promises) specification.
 
 Getting Started
 ---------------
