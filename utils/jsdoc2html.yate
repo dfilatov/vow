@@ -170,6 +170,7 @@ match .*[.jsdocType == "class"] {
             apply .description
             apply .cons cons
             apply .proto proto
+            apply .static static
         </div>
     </div>
 }
@@ -186,6 +187,15 @@ match .cons cons {
 match .proto proto {
     <div class="block">
         <div class="block__header">instance methods</div>
+        <div class="block__content">
+            apply .props
+        </div>
+    </div>
+}
+
+match .static static {
+    <div class="block">
+        <div class="block__header">class methods</div>
         <div class="block__content">
             apply .props
         </div>
