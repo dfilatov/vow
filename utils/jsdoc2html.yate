@@ -14,9 +14,18 @@ match / head {
 
 match / body {
     <body class="body body__page">
+        apply . toolbar
         apply .modules
         apply . scripts
     </body>
+}
+
+match / toolbar {
+    <div class="toolbar">
+        <span class="link action action_type_expand-all">expand all</span>
+        " / "
+        <span class="link action action_type_collapse-all">collapse all</span>
+    </div>
 }
 
 match .modules {
