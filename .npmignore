@@ -2,4 +2,7 @@
 /benchmarks
 /test
 /utils
+/bower.json
+/CHANGELOG.md
+/CONTRIBUTION.md
 /Makefile
