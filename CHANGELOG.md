@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.4.1
+-----
+  * Improve detection of vow-compatible promises
+  
 0.4.0
 -----
   * Implement [DOM Promise](http://dom.spec.whatwg.org/#promises) specification
