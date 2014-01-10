@@ -37,7 +37,7 @@ module.exports = {
             });
         },
 
-        'arguments can contains non-promise items' : function(test) {
+        'arguments can contain non-promise items' : function(test) {
             var defers = [0, Vow.defer(), Vow.defer(), 3, undefined];
 
             Vow.allPatiently(defersToPromises(defers)).then(function(vals) {
