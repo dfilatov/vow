@@ -5,6 +5,7 @@ var cliff = require('cliff'),
     Vow = require('..'),
     Q = require('q'),
     When = require('when'),
+    Bluebird = require('Bluebird'),
     tests = {
         'Q' : function(deferred) {
             var toResolve = [],
@@ -55,6 +56,35 @@ var cliff = require('cliff'),
 
             toResolve.forEach(function(obj) {
                 obj.defer.resolve(obj.val);
+            });
+        },
+
+        'Bluebird' : function(deferred) {
+            var toResolve = [],
+                topPromises = [];
+
+            Object.keys(data).forEach(function(key) {
+                var resolve,
+                    promise = new Bluebird(function(_resolve) {
+                        resolve = _resolve;
+                    });
+                Bluebird.all(data[key].map(function(val) {
+                        return new Bluebird(function(_resolve) {
+                            toResolve.push({ resolve : _resolve, val : val });
+                        });
+                    }))
+                    .then(function(val) {
+                        resolve(val);
+                    });
+                topPromises.push(promise);
+            });
+
+            Bluebird.all(topPromises).then(function() {
+                deferred.resolve();
+            });
+
+            toResolve.forEach(function(obj) {
+                obj.resolve(obj.val);
             });
         },
 
