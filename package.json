@@ -1,9 +1,9 @@
 {
     "name" : "vow",
     "version" : "0.4.1",
-    "description" : "Promises/A+ proposal compatible promises library",
+    "description" : "DOM Promise and Promises/A+ implementation for Node.js and browsers",
     "homepage" : "https://github.com/dfilatov/vow",
-    "keywords" : ["nodejs", "browser", "async", "promise", "a+"],
+    "keywords" : ["nodejs", "browser", "async", "promise", "dom", "a+"],
     "author" : "Dmitry Filatov <dfilatov@yandex-team.ru>",
     "contributors" : [{
         "name"  : "Dmitry Filatov",
