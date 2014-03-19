@@ -3,7 +3,7 @@ Changelog
 
 0.4.2
 -----
-  * Pass progress state from items in all arrays/objects methods [#45](https://github.com/dfilatov/vow/issues/58)
+  * Pass progress state from items in all arrays/objects methods [#58](https://github.com/dfilatov/vow/issues/58)
 
 0.4.1
 -----
