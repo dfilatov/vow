@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.4.2
+-----
+  * Pass progress state from items in all arrays/objects methods [#45](https://github.com/dfilatov/vow/issues/58)
+
 0.4.1
 -----
   * Improve detection of vow-compatible promises
