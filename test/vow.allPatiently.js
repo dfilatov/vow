@@ -37,6 +37,20 @@ module.exports = {
             });
         },
 
+        'resulting defer should be notified if argument if any defer notified' : function(test) {
+            var defers = [Vow.defer(), Vow.defer(), Vow.defer()],
+                i = 0;
+
+            Vow.allPatiently(defersToPromises(defers)).progress(function(val) {
+                test.equal(val, i);
+                (++i === defers.length) && test.done();
+            });
+
+            defers.forEach(function(defer, i) {
+                defer.notify(i);
+            });
+        },
+
         'arguments can contain non-promise items' : function(test) {
             var defers = [0, Vow.defer(), Vow.defer(), 3, undefined];
 
