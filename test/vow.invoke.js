@@ -1,4 +1,11 @@
 module.exports = {
+    'function should be called without arguments' : function(test) {
+        Vow.invoke(function() {
+            test.strictEqual(arguments.length, 0);
+            test.done();
+        });
+    },
+
     'function should be called with passed arguments' : function(test) {
         Vow.invoke(function(arg1, arg2, arg3) {
             test.strictEqual(arg1, 1);
