@@ -43,7 +43,7 @@ doSomethingAsync().then(
     function() {}  // onNotified reaction
     );
 ```
-The difference between `deferred` and `promise` is that `deferred` contains methods to resolve, reject and notify corresponding promise, but the `promise` by itself allows subscribe to reactions on this actions only.
+The difference between `deferred` and `promise` is that `deferred` contains methods to resolve, reject and notify corresponding promise, but the `promise` by itself allows only to subscribe on these actions.
 
 #### 2. ES6-compatible way ####
 ```js
