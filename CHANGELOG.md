@@ -1,6 +1,10 @@
 Changelog
 =========
 
+0.4.4
+-----
+  * ENB sources were added
+
 0.4.3
 -----
   * Some optimizations for V8 were added [#60](https://github.com/dfilatov/vow/issues/60). Thanks to [B-Vladi](https://github.com/B-Vladi).
