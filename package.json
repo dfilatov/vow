@@ -29,5 +29,10 @@
     "engines" : { "node" : ">= 0.4.0" },
     "scripts" : {
         "test" : "./node_modules/istanbul/lib/cli.js test test/utils/runner.js"
+    },
+    "enb" : {
+        "sources" : [
+            "lib/vow.js"
+        ]
     }
 }
