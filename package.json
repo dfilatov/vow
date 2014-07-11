@@ -1,6 +1,6 @@
 {
     "name" : "vow",
-    "version" : "0.4.4",
+    "version" : "0.4.5",
     "description" : "DOM Promise and Promises/A+ implementation for Node.js and browsers",
     "homepage" : "https://github.com/dfilatov/vow",
     "keywords" : ["nodejs", "browser", "async", "promise", "dom", "a+"],
