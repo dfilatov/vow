@@ -1,5 +1,11 @@
 module.exports = {
-    'resulting promise should be rejected if argument is non-promise' : function(test) {
+    'resulting promise should be immediately rejected' : function(test) {
+        var promise = Vow.reject('error');
+        test.ok(promise.isRejected());
+        test.done();
+    },
+
+    'resulting promise should be rejected with argument if argument is not a promise' : function(test) {
         Vow.reject('error').fail(function(error) {
             test.strictEqual(error, 'error');
             test.done();

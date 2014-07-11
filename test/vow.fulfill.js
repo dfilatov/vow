@@ -1,5 +1,11 @@
 module.exports = {
-    'resulting promise should be fulfilled if argument is non-promise' : function(test) {
+    'resulting promise should be immediately fulfilled if argument is not a promise' : function(test) {
+        var promise = Vow.fulfill('val');
+        test.ok(promise.isFulfilled());
+        test.done();
+    },
+
+    'resulting promise should be fulfilled with argument if argument is not a promise' : function(test) {
         Vow.fulfill('val').then(function(val) {
             test.strictEqual(val, 'val');
             test.done();
