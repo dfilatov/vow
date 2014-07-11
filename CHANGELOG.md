@@ -1,5 +1,10 @@
 Changelog
 =========
+0.4.5
+-----
+  * Throwing exceptions inside `vow.reject` was removed [#69](https://github.com/dfilatov/vow/issues/69)
+  * `promise.isFulfilled`/`promise.isRejected` immediately return proper state of promise got from `vow.fulfill(value)`/`reject(value`) [#68](https://github.com/dfilatov/vow/issues/68)
+  * Minor optimizations were added
 
 0.4.4
 -----
