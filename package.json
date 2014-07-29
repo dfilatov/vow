@@ -2,7 +2,7 @@
     "name" : "vow",
     "version" : "0.4.5",
     "description" : "DOM Promise and Promises/A+ implementation for Node.js and browsers",
-    "homepage" : "https://github.com/dfilatov/vow",
+    "homepage" : "http://dfilatov.github.io/vow/",
     "keywords" : ["nodejs", "browser", "async", "promise", "dom", "a+"],
     "author" : "Dmitry Filatov <dfilatov@yandex-team.ru>",
     "contributors" : [{
