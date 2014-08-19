@@ -149,11 +149,20 @@ module.exports = {
         }, 20);
     },
 
-    'defer.reject() should resolve given value': function (test) {
+    'should reject promise if reason is fulfilled promise': function (test) {
         var defer = Vow.defer();
-        defer.reject(Vow.reject(42));
-        defer.promise().done(null, function (val) {
-            test.strictEqual(val, 42);
+        defer.reject(Vow.fulfill('ok'));
+        defer.promise().fail(function(val) {
+            test.strictEqual(val, 'ok');
+            test.done();
+        });
+    },
+
+    'should reject promise if reason is rejected promise': function (test) {
+        var defer = Vow.defer();
+        defer.reject(Vow.reject('error'));
+        defer.promise().fail(function(val) {
+            test.strictEqual(val, 'error');
             test.done();
         });
     }
