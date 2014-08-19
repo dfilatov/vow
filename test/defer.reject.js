@@ -147,5 +147,14 @@ module.exports = {
             test.deepEqual(resOrder, [1, 2, 3, 4, 5, 6, 7, 8]);
             test.done();
         }, 20);
+    },
+
+    'defer.reject() should resolve given value': function (test) {
+        var defer = Vow.defer();
+        defer.reject(Vow.reject(42));
+        defer.promise().done(null, function (val) {
+            test.strictEqual(val, 42);
+            test.done();
+        });
     }
 };
