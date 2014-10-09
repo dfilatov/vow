@@ -5,7 +5,7 @@ Vow 0.4.5 [![NPM version](https://badge.fury.io/js/vow.png)](http://badge.fury.i
 =========
 
 Vow is a [Promises/A+](http://promisesaplus.com/) implementation.
-It also supports [DOM Promises](http://dom.spec.whatwg.org/#promises) specification.
+It also supports [ES6 Promises](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-promise-objects) specification.
 
 Getting Started
 ---------------
