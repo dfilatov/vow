@@ -62,3 +62,10 @@ doSomethingAsync().then(
 
 
 Full API reference can be found at http://dfilatov.github.io/vow/.
+
+Extensions and related projects
+-------------------------------
+  * [vow-fs](https://github.com/dfilatov/vow-fs) — vow-based file I/O for Node.js
+  * [vow-node](https://github.com/dfilatov/vow-node) — extension for vow to work with nodejs-style callbacks
+  * [vow-queue](https://github.com/dfilatov/vow-queue) — vow-based task queue with weights and priorities
+  * [vow-asker](https://github.com/nodules/vow-asker) — wraps [asker](https://github.com/nodules/asker) API in the vow promises implementation
