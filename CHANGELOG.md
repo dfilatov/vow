@@ -1,5 +1,10 @@
 Changelog
 =========
+0.4.6
+-----
+  * `defer.reject` had wrong behaviour in case of already rejected promise was passed [#72](https://github.com/dfilatov/vow/issues/72)
+  * CommonJS environment detection became more accurate [#74](https://github.com/dfilatov/vow/issues/74)
+
 0.4.5
 -----
   * Throwing exceptions inside `vow.reject` was removed [#69](https://github.com/dfilatov/vow/issues/69)
