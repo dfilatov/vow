@@ -3,7 +3,7 @@ module.exports = {
         var resPromise = Vow.defer().promise().timeout(10);
         setTimeout(function() {
             test.ok(resPromise.isRejected());
-            test.deepEqual(resPromise.valueOf(), new Error('timed out'));
+            test.ok(resPromise.valueOf() instanceof Vow.TimedOutError);
             test.done();
         }, 20);
     },
