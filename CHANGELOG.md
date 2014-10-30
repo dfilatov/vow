@@ -1,5 +1,10 @@
 Changelog
 =========
+0.4.7
+-----
+  * `vow.all` had wrong behaviour in case of passing of another promise implementation [#77](https://github.com/dfilatov/vow/issues/77)
+  * `vow.timeout` rejects with `vow.TimedOutError` instead of `Error` reason in case of timeout [#76](https://github.com/dfilatov/vow/issues/76)
+  
 0.4.6
 -----
   * `defer.reject` had wrong behaviour in case of already rejected promise was passed [#72](https://github.com/dfilatov/vow/issues/72)
