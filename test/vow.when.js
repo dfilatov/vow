@@ -29,7 +29,7 @@ module.exports = {
     },
 
     'onProgress callback should be called when argument notified' : function(test) {
-        var defer = Vow.defer();;
+        var defer = Vow.defer();
 
         Vow.when(defer.promise(), null, null, function(val) {
             test.strictEqual(val, 'val');
