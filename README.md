@@ -1,7 +1,7 @@
 **NOTE**. Documentation for old versions of the library can be found at https://github.com/dfilatov/vow/blob/0.3.x/README.md.
 
 <a href="http://promises-aplus.github.com/promises-spec"><img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png" align="right" /></a>
-Vow 0.4.7 [![NPM version](https://badge.fury.io/js/vow.png)](http://badge.fury.io/js/vow) [![Build Status](https://secure.travis-ci.org/dfilatov/vow.png)](http://travis-ci.org/dfilatov/vow)
+Vow 0.4.8 [![NPM version](https://badge.fury.io/js/vow.png)](http://badge.fury.io/js/vow) [![Build Status](https://secure.travis-ci.org/dfilatov/vow.png)](http://travis-ci.org/dfilatov/vow)
 =========
 
 Vow is a [Promises/A+](http://promisesaplus.com/) implementation.
