@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.8
+-----
+  * Detection of ymaps modular system was improved [#82](https://github.com/dfilatov/vow/issues/82)
+  
 0.4.7
 -----
   * `vow.all` had wrong behaviour in case of passing of another promise implementation [#77](https://github.com/dfilatov/vow/issues/77)
