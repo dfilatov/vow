@@ -231,7 +231,7 @@ match .*[.examples] examples {
 }
 
 match / scripts {
-    <script type="text/javascript" src="http://yandex.st/jquery/2.0.3/jquery.js"></script>
+    <script type="text/javascript" src="//yandex.st/jquery/2.0.3/jquery.js"></script>
     <script type="text/javascript" src="index.js"></script>
     <script type="text/javascript" src="metrika.js"></script>
 }
