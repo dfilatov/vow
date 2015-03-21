@@ -1,6 +1,6 @@
 {
   "name"    : "vow",
-  "version" : "0.4.8",
+  "version" : "0.4.9",
   "main"    : "lib/vow.js",
   "ignore"  : ["**/.*", "node_modules", "benchmarks", "test", "utils", "Makefile", "package.json"]
 }
