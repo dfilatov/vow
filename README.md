@@ -1,11 +1,11 @@
-**NOTE**. Documentation for old versions of the library can be found at https://github.com/dfilatov/vow/blob/0.3.x/README.md.
-
 <a href="http://promises-aplus.github.com/promises-spec"><img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png" align="right" /></a>
 Vow 0.4.9 [![NPM version](https://badge.fury.io/js/vow.png)](http://badge.fury.io/js/vow) [![Build Status](https://secure.travis-ci.org/dfilatov/vow.png)](http://travis-ci.org/dfilatov/vow)
 =========
 
 Vow is a [Promises/A+](http://promisesaplus.com/) implementation.
 It also supports [ES6 Promises](https://people.mozilla.org/~jorendorff/es6-draft.html#sec-promise-objects) specification.
+
+Full API reference can be found at http://dfilatov.github.io/vow/.
 
 Getting Started
 ---------------
@@ -60,12 +60,11 @@ doSomethingAsync().then(
     );
 ```
 
-
-Full API reference can be found at http://dfilatov.github.io/vow/.
-
 Extensions and related projects
 -------------------------------
   * [vow-fs](https://github.com/dfilatov/vow-fs) — vow-based file I/O for Node.js
   * [vow-node](https://github.com/dfilatov/vow-node) — extension for vow to work with nodejs-style callbacks
   * [vow-queue](https://github.com/dfilatov/vow-queue) — vow-based task queue with weights and priorities
   * [vow-asker](https://github.com/nodules/vow-asker) — wraps [asker](https://github.com/nodules/asker) API in the vow promises implementation
+
+**NOTE**. Documentation for old versions of the library can be found at https://github.com/dfilatov/vow/blob/0.3.x/README.md.
