@@ -13,6 +13,7 @@
         "type" : "git",
         "url"  : "http://github.com/dfilatov/vow.git"
     },
+    "license": "MIT",
     "dependencies": {},
     "devDependencies": {
         "nodeunit" : "",
