@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.10
+-----
+  * Now `MutationObserver` is used for internal "next tick" operations
+
 0.4.9
 -----
   * `vow.cast` method was fixed to properly work with external promises [#88](https://github.com/dfilatov/vow/issues/88)
