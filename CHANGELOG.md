@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.11
+-----
+  * Now global object (`window`, `global`) is passed properly 
+
 0.4.10
 -----
   * Now `MutationObserver` is used for internal "next tick" operations
