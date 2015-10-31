@@ -1,12 +1,13 @@
 {
-    "name" : "promises-library-speed-comparison",
-    "version" : "0.0.1",
-    "dependencies": {
-        "cliff" : "",
-        "benchmark" : "",
-        "q" : "1.0.1",
-        "when" : "3.5.0",
-        "bluebird" : "2.3.5"
-    },
-    "private" : true
+  "name": "promises-library-speed-comparison",
+  "version": "0.0.1",
+  "dependencies": {
+    "benchmark": "",
+    "bluebird": "3.0.2",
+    "cliff": "",
+    "pinkie-promise": "1.0.0",
+    "q": "1.0.1",
+    "when": "3.5.0"
+  },
+  "private": true
 }

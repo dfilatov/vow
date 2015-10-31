@@ -6,6 +6,7 @@ var cliff = require('cliff'),
     Q = require('q'),
     When = require('when'),
     Bluebird = require('Bluebird'),
+    Pinkie = require('pinkie-promise'),
     tests = {
         'Q' : function(deferred) {
             var toResolve = [],
@@ -80,6 +81,64 @@ var cliff = require('cliff'),
             });
 
             Bluebird.all(topPromises).then(function() {
+                deferred.resolve();
+            });
+
+            toResolve.forEach(function(obj) {
+                obj.resolve(obj.val);
+            });
+        },
+
+        'Pinkie' : function(deferred) {
+            var toResolve = [],
+                topPromises = [];
+
+            Object.keys(data).forEach(function(key) {
+                var resolve,
+                    promise = new Pinkie(function(_resolve) {
+                        resolve = _resolve;
+                    });
+                Pinkie.all(data[key].map(function(val) {
+                        return new Pinkie(function(_resolve) {
+                            toResolve.push({ resolve : _resolve, val : val });
+                        });
+                    }))
+                    .then(function(val) {
+                        resolve(val);
+                    });
+                topPromises.push(promise);
+            });
+
+            Pinkie.all(topPromises).then(function() {
+                deferred.resolve();
+            });
+
+            toResolve.forEach(function(obj) {
+                obj.resolve(obj.val);
+            });
+        },
+
+        'ES2015 Promise' : function(deferred) {
+            var toResolve = [],
+                topPromises = [];
+
+            Object.keys(data).forEach(function(key) {
+                var resolve,
+                    promise = new Promise(function(_resolve) {
+                        resolve = _resolve;
+                    });
+                Promise.all(data[key].map(function(val) {
+                        return new Promise(function(_resolve) {
+                            toResolve.push({ resolve : _resolve, val : val });
+                        });
+                    }))
+                    .then(function(val) {
+                        resolve(val);
+                    });
+                topPromises.push(promise);
+            });
+
+            Promise.all(topPromises).then(function() {
                 deferred.resolve();
             });
 
