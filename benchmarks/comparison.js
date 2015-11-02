@@ -5,7 +5,7 @@ var cliff = require('cliff'),
     Vow = require('..'),
     Q = require('q'),
     When = require('when'),
-    Bluebird = require('Bluebird'),
+    Bluebird = require('bluebird'),
     Pinkie = require('pinkie-promise'),
     tests = {
         'Q' : function(deferred) {
