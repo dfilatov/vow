@@ -152,9 +152,9 @@ var cliff = require('cliff'),
                 topPromises = Object.keys(data).map(function(key) {
                     var defer = Vow.defer();
                     Vow.all(data[key].map(function(val) {
-                            var resolver = Vow.defer();
+                            var defer = Vow.defer();
                             toResolve.push({ defer : defer, val : val });
-                            return resolver.promise();
+                            return defer.promise();
                         }))
                         .then(function(val) {
                             defer.resolve(val);
