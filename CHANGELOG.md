@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.12
+-----
+  * Wrong propagation of progress state fixed
+
 0.4.11
 -----
   * Now global object (`window`, `global`) is passed properly 
