@@ -3,11 +3,11 @@
   "version": "0.0.1",
   "dependencies": {
     "benchmark": "",
-    "bluebird": "3.0.2",
+    "bluebird": "3.4.0",
     "cliff": "",
-    "pinkie-promise": "1.0.0",
-    "q": "1.0.1",
-    "when": "3.5.0"
+    "pinkie-promise": "2.0.1",
+    "q": "1.4.1",
+    "when": "3.7.7"
   },
   "private": true
 }
