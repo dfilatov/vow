@@ -7,6 +7,7 @@ var cliff = require('cliff'),
     When = require('when'),
     Bluebird = require('bluebird'),
     Pinkie = require('pinkie-promise'),
+    corePromise = require('core-js/library/es6/promise')
     tests = {
         'Q' : function(deferred) {
             var toResolve = [],
@@ -139,6 +140,35 @@ var cliff = require('cliff'),
             });
 
             Promise.all(topPromises).then(function() {
+                deferred.resolve();
+            });
+
+            toResolve.forEach(function(obj) {
+                obj.resolve(obj.val);
+            });
+        },
+
+        'core-js Promise' : function(deferred) {
+            var toResolve = [],
+                topPromises = [];
+
+            Object.keys(data).forEach(function(key) {
+                var resolve,
+                    promise = new corePromise(function(_resolve) {
+                        resolve = _resolve;
+                    });
+                corePromise.all(data[key].map(function(val) {
+                        return new corePromise(function(_resolve) {
+                            toResolve.push({ resolve : _resolve, val : val });
+                        });
+                    }))
+                    .then(function(val) {
+                        resolve(val);
+                    });
+                topPromises.push(promise);
+            });
+
+            corePromise.all(topPromises).then(function() {
                 deferred.resolve();
             });
 
