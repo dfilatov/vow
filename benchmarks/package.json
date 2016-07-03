@@ -5,6 +5,7 @@
     "benchmark": "",
     "bluebird": "3.4.0",
     "cliff": "",
+    "core-js": "2.4.0",
     "pinkie-promise": "2.0.1",
     "q": "1.4.1",
     "when": "3.7.7"
