@@ -6,8 +6,9 @@ var cliff = require('cliff'),
     Q = require('q'),
     When = require('when'),
     Bluebird = require('bluebird'),
-    Pinkie = require('pinkie-promise'),
-    corePromise = require('core-js/library/es6/promise')
+    Pinkie = require('pinkie'),
+    corePromise = require('core-js/library/es6/promise'),
+    Davy = require('davy'),
     tests = {
         'Q' : function(deferred) {
             var toResolve = [],
@@ -116,6 +117,30 @@ var cliff = require('cliff'),
 
             toResolve.forEach(function(obj) {
                 obj.resolve(obj.val);
+            });
+        },
+
+        'Davy': function (deferred) {
+            var toResolve = [],
+                topPromises = Object.keys(data).map(function(key) {
+                    var defer = Davy.defer();
+                    Davy.all(data[key].map(function(val) {
+                            var defer = Davy.defer();
+                            toResolve.push({ defer : defer, val : val });
+                            return defer.promise;
+                        }))
+                        .then(function(val) {
+                            defer.fulfill(val);
+                        });
+                    return defer.promise;
+                });
+
+            Davy.all(topPromises).then(function() {
+                deferred.resolve();
+            });
+
+            toResolve.forEach(function(obj) {
+                obj.defer.fulfill(obj.val);
             });
         },
 
