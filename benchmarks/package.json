@@ -11,5 +11,8 @@
     "when": "3.7.7",
     "davy": "1.3.0"
   },
+  "scripts": {
+    "bench": "node comparison.js"
+  },
   "private": true
 }
