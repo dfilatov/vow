@@ -235,6 +235,13 @@ var cliff = require('cliff'),
         });
     };
 
+try {
+    new Promise();
+}
+catch (err) {
+    delete tests['ES2015 Promise'];
+}
+
 var suite = new benchmark.Suite(
     'comparison',
     {
@@ -261,7 +268,7 @@ Object.keys(tests).forEach(function(name) {
         {
             defer      : true,
             onStart    : function() {
-                //console.log(name  + ' \n');
+                console.log(name  + '\n');
             },
             onCycle    : function() {
                 console.log('\033[1A' + new Array(i++).join('.'));
