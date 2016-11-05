@@ -1,6 +1,6 @@
 {
   "name": "promises-library-speed-comparison",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "dependencies": {
     "benchmark": "",
     "bluebird": "3.4.6",

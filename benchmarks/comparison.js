@@ -229,7 +229,7 @@ var cliff = require('cliff'),
     results = [],
     onTestCompleted = function(name) {
         results.push({
-            ''          : name,
+            'library'   : name,
             'mean time' : (this.stats.mean * 1000).toFixed(3) + 'ms',
             'ops/sec'   : (1 / this.stats.mean).toFixed(0)
         });
@@ -240,7 +240,14 @@ try {
 }
 catch (err) {
     delete tests['ES2015 Promise'];
-}
+};
+
+function compareMeanTime(a, b) {
+    var pick = function (x) {
+        return parseFloat(x['mean time']);
+    };
+    return pick(a) - pick(b);
+};
 
 var suite = new benchmark.Suite(
     'comparison',
@@ -250,9 +257,10 @@ var suite = new benchmark.Suite(
         },
 
         onComplete : function() {
+            results.sort(compareMeanTime);
             console.log(cliff.stringifyObjectRows(
                 results,
-                ['', 'mean time', 'ops/sec'],
+                ['library', 'mean time', 'ops/sec'],
                 ['red', 'green', 'blue']) + '\n');
             results = [];
         }
