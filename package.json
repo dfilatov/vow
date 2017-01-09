@@ -25,6 +25,7 @@
         "highlight.js" : "7.5.0",
         "bem-jsd" : "1.3.1"
     },
+    "license" : "MIT",
     "main" : "lib/vow",
     "engines" : { "node" : ">= 0.4.0" },
     "scripts" : {
