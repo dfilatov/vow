@@ -1,5 +1,13 @@
 Changelog
 =========
+0.4.14
+-----
+  * Added support of unhandled rejection event [#111] (https://github.com/dfilatov/vow/issues/111)
+
+0.4.13
+-----
+  * Added workaround to avoid bug with `Array.prototype.push` in Opera 41
+
 0.4.12
 -----
   * Wrong propagation of progress state fixed
