@@ -1,6 +1,6 @@
 Changelog
 =========
-0.4.14
+0.4.15
 -----
   * Fixed an issue with double emit of PromiseRejectionEvent [#113] (https://github.com/dfilatov/vow/issues/113)
 
