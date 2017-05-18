@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.16
+-----
+  * Fixed an issue with throwing exception within resolver function [#113] (https://github.com/dfilatov/vow/issues/114)
+
 0.4.15
 -----
   * Fixed an issue with double emit of PromiseRejectionEvent [#113] (https://github.com/dfilatov/vow/issues/113)
