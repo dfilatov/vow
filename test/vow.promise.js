@@ -21,6 +21,18 @@ module.exports = {
             });
     },
 
+    'promise should be rejected if an error is thrown in the resolver function' : function(test) {
+        var _error = new Error();
+        new Vow
+            .Promise(function() {
+                throw _error;
+            })
+            .fail(function(error) {
+                test.strictEqual(error, _error);
+                test.done();
+            });
+    },
+
     'promise should be notified with passed value' : function(test) {
         var _notify;
         new Vow
