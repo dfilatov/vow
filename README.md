@@ -1,5 +1,7 @@
 <a href="http://promises-aplus.github.com/promises-spec"><img src="http://promises-aplus.github.com/promises-spec/assets/logo-small.png" align="right" /></a>
-Vow [![NPM version](https://badge.fury.io/js/vow.png)](http://badge.fury.io/js/vow) [![Build Status](https://secure.travis-ci.org/dfilatov/vow.png)](http://travis-ci.org/dfilatov/vow)
+Vow
+[![NPM Version](https://img.shields.io/npm/v/vow.svg?style=flat-square)](https://www.npmjs.com/package/vow)
+[![Build Status](https://img.shields.io/travis/dfilatov/vow/master.svg?style=flat-square)](https://travis-ci.org/dfilatov/vow/branches)
 =========
 
 Vow is a [Promises/A+](http://promisesaplus.com/) implementation.
