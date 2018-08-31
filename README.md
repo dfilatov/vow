@@ -2,6 +2,7 @@
 Vow
 [![NPM Version](https://img.shields.io/npm/v/vow.svg?style=flat-square)](https://www.npmjs.com/package/vow)
 [![Build Status](https://img.shields.io/travis/dfilatov/vow/master.svg?style=flat-square)](https://travis-ci.org/dfilatov/vow/branches)
+[![NPM Downloads](https://img.shields.io/npm/dm/vow.svg?style=flat-square)](https://www.npmjs.org/package/vow)
 =========
 
 Vow is a [Promises/A+](http://promisesaplus.com/) implementation.
