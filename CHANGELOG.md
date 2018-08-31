@@ -1,5 +1,9 @@
 Changelog
 =========
+0.4.18
+-----
+  * Added `promise.finally` [#116] (https://github.com/dfilatov/vow/issues/116)
+
 0.4.17
 -----
   * Fixed an issue with wrong resolving after adding `onProgress` callback
