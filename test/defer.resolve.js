@@ -1,4 +1,4 @@
-var nextTick = typeof setImmediate === 'function'? setImmediate : process.nextTick;
+var nextTick = process.nextTick;
 
 module.exports = {
     'onFulfilled callbacks should be called on fulfill only' : function(test) {

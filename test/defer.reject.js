@@ -1,4 +1,4 @@
-var nextTick = typeof setImmediate === 'function'? setImmediate : process.nextTick;
+var nextTick = process.nextTick;
 
 module.exports = {
     'onRejected callbacks should be called on reject only' : function(test) {
