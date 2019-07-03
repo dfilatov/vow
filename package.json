@@ -24,8 +24,8 @@
     },
     "dependencies": {},
     "devDependencies": {
-        "nodeunit": "",
-        "istanbul": "",
+        "nodeunit": "0.11.3",
+        "istanbul": "0.4.5",
         "terser": "4.0.2",
         "promises-aplus-tests": "2.1.0",
         "marked": "0.6.3",
