@@ -5,6 +5,6 @@ benchmark:
 	node benchmarks/comparison.js
 
 min:
-	./node_modules/uglify-js/bin/uglifyjs lib/vow.js > vow.min.js
+	./node_modules/.bin/terser --compress --mangle -- lib/vow.js > vow.min.js
 
 .PHONY: test benchmark min
