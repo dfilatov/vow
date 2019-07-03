@@ -5,21 +5,24 @@ module.exports = {
         'resulting promise should be fulfilled after all promises fulfilled or rejected' : function(test) {
             var defers = [Vow.defer(), Vow.defer(), Vow.defer()];
 
-            Vow.allResolved(defersToPromises(defers)).then(function(promises) {
-                test.deepEqual(defersToPromises(defers), promises);
-                promises.forEach(function(promise, i) {
-                    test.ok(i % 2? promise.isFulfilled() : promise.isRejected());
-                });
+            Vow.allSettled(defersToPromises(defers)).then(function(res) {
+                test.deepEqual(
+                    res,
+                    [
+                        { status : 'fulfilled', value : 'ok0' },
+                        { status : 'rejected', reason : 'err1' },
+                        { status : 'fulfilled', value : 'ok2' }
+                    ]);
                 test.done();
             });
 
             defers.forEach(function(promise, i) {
-                i % 2? promise.resolve() : promise.reject();
+                i % 2? promise.reject('err' + i) : promise.resolve('ok' + i);
             });
         },
 
         'resulting promise should be fulfilled if argument is empty array' : function(test) {
-            Vow.allResolved([]).then(function(vals) {
+            Vow.allSettled([]).then(function(vals) {
                 test.deepEqual(vals, []);
                 test.done();
             });
@@ -29,7 +32,7 @@ module.exports = {
             var defers = [Vow.defer(), Vow.defer(), Vow.defer()],
                 i = 0;
 
-            Vow.allResolved(defersToPromises(defers)).progress(function(val) {
+            Vow.allSettled(defersToPromises(defers)).progress(function(val) {
                 test.equal(val, i);
                 (++i === defers.length) && test.done();
             });
@@ -48,21 +51,24 @@ module.exports = {
                     c : Vow.defer()
                 };
 
-            Vow.allResolved(defersToPromises(defers)).then(function(promises) {
-                test.deepEqual(defersToPromises(defers), promises);
-                Object.keys(promises).forEach(function(key, i) {
-                    test.ok(i % 2? promises[key].isFulfilled() : promises[key].isRejected());
-                });
+            Vow.allSettled(defersToPromises(defers)).then(function(res) {
+                test.deepEqual(
+                    res,
+                    {
+                        a : { status : 'fulfilled', value : 'oka' },
+                        b : { status : 'rejected', reason : 'errb' },
+                        c : { status : 'fulfilled', value : 'okc' }
+                    });
                 test.done();
             });
 
             Object.keys(defers).forEach(function(key, i) {
-                i % 2? defers[key].resolve() : defers[key].reject();
+                i % 2? defers[key].reject('err' + key) : defers[key].resolve('ok' + key);
             });
         },
 
         'resulting promise should be fulfilled if argument is empty object' : function(test) {
-            Vow.allResolved({}).then(function(vals) {
+            Vow.allSettled({}).then(function(vals) {
                 test.deepEqual(vals, {});
                 test.done();
             });
