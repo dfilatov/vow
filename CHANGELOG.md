@@ -1,8 +1,12 @@
 Changelog
 =========
+0.4.20
+-----
+  * Added `Promise.allSettled` [#118](https://github.com/dfilatov/vow/issues/118)
+
 0.4.18
 -----
-  * Added `promise.finally` [#116] (https://github.com/dfilatov/vow/issues/116)
+  * Added `promise.finally` [#116](https://github.com/dfilatov/vow/issues/116)
 
 0.4.17
 -----
@@ -10,15 +14,15 @@ Changelog
 
 0.4.16
 -----
-  * Fixed an issue with throwing exception within resolver function [#113] (https://github.com/dfilatov/vow/issues/114)
+  * Fixed an issue with throwing exception within resolver function [#113](https://github.com/dfilatov/vow/issues/114)
 
 0.4.15
 -----
-  * Fixed an issue with double emit of `PromiseRejectionEvent` [#113] (https://github.com/dfilatov/vow/issues/113)
+  * Fixed an issue with double emit of `PromiseRejectionEvent` [#113](https://github.com/dfilatov/vow/issues/113)
 
 0.4.14
 -----
-  * Added support of unhandled rejection event [#111] (https://github.com/dfilatov/vow/issues/111)
+  * Added support of unhandled rejection event [#111](https://github.com/dfilatov/vow/issues/111)
 
 0.4.13
 -----
