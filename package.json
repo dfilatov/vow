@@ -28,7 +28,7 @@
         "istanbul": "0.4.5",
         "terser": "4.0.2",
         "promises-aplus-tests": "2.1.0",
-        "marked": "0.6.3",
+        "marked": "0.7.0",
         "jspath": "0.2.11",
         "yate": "0.0.65",
         "highlight.js": "7.5.0",
